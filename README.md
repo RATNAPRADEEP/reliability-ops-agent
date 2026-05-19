@@ -8,7 +8,7 @@ An intelligent observability dashboard designed to analyze Kubernetes and Kubefl
 # 🚀 Dashboard Preview
 
 <p align="center">
-  <img src="./demo.png" width="900"/>
+  <img src="./image.png" width="900"/>
 </p>
 
 This dashboard demonstrates a modern CI/CD observability interface for analyzing Kubernetes workflow failures and pipeline execution issues.
