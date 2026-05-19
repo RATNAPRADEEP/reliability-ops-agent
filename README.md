@@ -1,4 +1,4 @@
-````md
+
 # AI-Powered CI/CD Failure Intelligence Dashboard
 
 An intelligent observability dashboard designed to analyze Kubernetes and Kubeflow pipeline failures with structured failure classification, root-cause insights, and remediation recommendations.
