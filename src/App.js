@@ -4,13 +4,27 @@ function App() {
   return (
     <div className="app">
 
+      {/* Header */}
+
       <div className="title">
-        AI-Powered CI/CD Failure Intelligence Dashboard
+        Reliability Ops Agent
       </div>
 
       <div className="subtitle">
-        Intelligent Kubernetes & Kubeflow Pipeline Observability Platform
+        Agentic Operational Workflow System for CI/CD Reliability Engineering
       </div>
+
+      {/* Top Navigation */}
+
+      <div className="top-nav">
+        <span>Overview</span>
+        <span>Workflows</span>
+        <span>Incidents</span>
+        <span>Agents</span>
+        <span>Observability</span>
+      </div>
+
+      {/* Operational Overview */}
 
       <div className="dashboard-grid">
 
@@ -20,84 +34,206 @@ function App() {
         </div>
 
         <div className="card">
-          <h2>Failed Jobs</h2>
-          <p>12</p>
+          <h2>Active Reliability Incidents</h2>
+          <p className="danger">12</p>
         </div>
 
         <div className="card">
           <h2>Running Workflows</h2>
-          <p>7</p>
+          <p className="success">7</p>
         </div>
 
         <div className="card">
           <h2>Recovery Success Rate</h2>
-          <p>92%</p>
+          <p className="metric-highlight">92%</p>
         </div>
 
       </div>
+
+      {/* Incident Summary */}
 
       <div className="analysis-box">
 
-        <h2>AI Failure Classification</h2>
+        <h2>Operational Incident Summary</h2>
 
-        <div className="label">Failure Type</div>
-        <div className="value">CrashLoopBackOff</div>
-
-        <div className="label">Root Cause</div>
-        <div className="value">
-          Dependency container failed health checks during startup.
+        <div className="label">Incident Severity</div>
+        <div className="value danger">
+          High
         </div>
 
-        <div className="label">Recommended Remediation</div>
+        <div className="label">Cluster Region</div>
         <div className="value">
-          Increase startup probe timeout and validate service dependencies.
+          us-east-1
+        </div>
+
+        <div className="label">Last Updated</div>
+        <div className="value">
+          12 seconds ago
+        </div>
+
+        <div className="label">Active Agents</div>
+        <div className="value">
+          4 operational agents online
         </div>
 
       </div>
 
-      <div className="analysis-box" style={{ marginTop: "20px" }}>
+      {/* Investigation Workflow */}
 
-        <h2>Recent Pipeline Events</h2>
+      <div className="analysis-box">
 
-        <div className="analysis-box" style={{ marginTop: "20px" }}>
+        <h2>Investigation Workflow</h2>
 
-  	<h2>System Health Overview</h2>
-
-  	<div className="label">Kubernetes Cluster</div>
-  	<div className="value">
-    	Healthy • API latency normal
-  	</div>
-
-  	<div className="label">Argo Workflow Controller</div>
-  	<div className="value">
-    	  Active • 18 workflows managed
-  	</div>
-
-  	<div className="label">Persistence Agent</div>
-  	<div className="value">
-    	  Synced • No reconciliation lag detected
-  	</div>
-
-  	<div className="label">AI Failure Detection Engine</div>
-  	<div className="value">
-    	  Online • Monitoring pipeline anomalies
-  	</div>
-
-	</div>
-
-        <div className="label">build-service-v2</div>
-        <div className="value">
-          Succeeded • 2 mins ago
+        <div className="label">Failure Event</div>
+        <div className="value danger">
+          payment-workflow • CrashLoopBackOff
         </div>
 
-        <div className="label">payment-workflow</div>
+        <div className="label">Investigation Agent</div>
         <div className="value">
-          CrashLoopBackOff • 5 mins ago
+          Operational signals extracted from CI/CD logs
         </div>
 
-        <div className="label">ml-training-pipeline</div>
+        <div className="label">Operational Root Cause</div>
         <div className="value">
-          Running • Active
+          Dependency container failed startup health checks during orchestration.
+        </div>
+
+        <div className="label">Historical Correlation</div>
+        <div className="value">
+          Similar failure detected 14 times in previous deployment cycles.
+        </div>
+
+        <div className="label">Remediation Plan</div>
+        <div className="value">
+          Increase startup probe timeout and validate downstream service dependencies.
+        </div>
+
+        <div className="label">Confidence Score</div>
+        <div className="value metric-highlight">
+          0.91 • High Reliability
+        </div>
+
+        <div className="label">Approval Status</div>
+        <div className="value warning">
+          Awaiting Reliability Engineer Approval
+        </div>
+
+      </div>
+
+      {/* Workflow Timeline */}
+
+      <div className="analysis-box">
+
+        <h2>Workflow Timeline</h2>
+
+        <div className="workflow-step">
+          <div className="status-dot"></div>
+          <div>Failure Detection Completed</div>
+        </div>
+
+        <div className="workflow-step">
+          <div className="status-dot"></div>
+          <div>Investigation Workflow Completed</div>
+        </div>
+
+        <div className="workflow-step">
+          <div className="status-dot"></div>
+          <div>Root-Cause Classification Completed</div>
+        </div>
+
+        <div className="workflow-step">
+          <div className="status-dot"></div>
+          <div>Historical Context Retrieved</div>
+        </div>
+
+        <div className="workflow-step">
+          <div className="status-dot warning"></div>
+          <div>Awaiting Human Approval</div>
+        </div>
+
+      </div>
+
+      {/* Agent Status */}
+
+      <div className="analysis-box">
+
+        <h2>Agent Status Console</h2>
+
+        <div className="label">Investigation Agent</div>
+        <div className="value success">
+          Active • Processing operational logs
+        </div>
+
+        <div className="label">Classification Agent</div>
+        <div className="value success">
+          Running • Root-cause workflow completed
+        </div>
+
+        <div className="label">Remediation Agent</div>
+        <div className="value warning">
+          Waiting • Human approval required
+        </div>
+
+        <div className="label">Historical Memory Layer</div>
+        <div className="value success">
+          Synced • 248 incident patterns indexed
+        </div>
+
+      </div>
+
+      {/* System Health */}
+
+      <div className="analysis-box">
+
+        <h2>System Health Overview</h2>
+
+        <div className="label">Kubernetes Cluster</div>
+        <div className="value success">
+          Healthy • API latency normal
+        </div>
+
+        <div className="label">Workflow Orchestration Layer</div>
+        <div className="value success">
+          Active • 18 workflows managed
+        </div>
+
+        <div className="label">Observability Engine</div>
+        <div className="value success">
+          Synced • Reliability metrics operational
+        </div>
+
+        <div className="label">AI Reliability Operations Engine</div>
+        <div className="value success">
+          Online • Monitoring pipeline anomalies
+        </div>
+
+      </div>
+
+      {/* Reliability Metrics */}
+
+      <div className="analysis-box">
+
+        <h2>Reliability Metrics</h2>
+
+        <div className="label">Mean Time To Resolution (MTTR)</div>
+        <div className="value">
+          18 mins
+        </div>
+
+        <div className="label">Recurring Incident Frequency</div>
+        <div className="value">
+          Medium • 14 repeated failures detected
+        </div>
+
+        <div className="label">Pipeline Health Score</div>
+        <div className="value metric-highlight">
+          87 / 100
+        </div>
+
+        <div className="label">Operational Risk Level</div>
+        <div className="value warning">
+          Medium
         </div>
 
       </div>

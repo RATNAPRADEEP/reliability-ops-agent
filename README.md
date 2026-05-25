@@ -4,13 +4,27 @@ An agentic reliability operations platform for investigating CI/CD and Kubernete
 
 ---
 
-# 🚀 Dashboard Preview
-
-<p align="center">
-  <img src="./image.png" width="900"/>
-</p>
-
 This dashboard demonstrates an operational reliability workflow interface for analyzing Kubernetes execution failures, CI/CD pipeline instability, and remediation planning workflows.
+
+---
+
+# 📸 Platform Preview
+
+## Operational Console
+
+![Dashboard Overview](screenshots/dashboard-overview.png)
+
+---
+
+## Investigation Workflow
+
+![Investigation Workflow](screenshots/investigation-workflow.png)
+
+
+
+## Workflow Timeline & Agent Console
+
+![Workflow Timeline](screenshots/workflow-agent-console.png)
 
 ---
 
@@ -118,14 +132,14 @@ Generates remediation workflows, retry strategies, rollback recommendations, and
 
 # 📊 Example Failure Classification
 
-| Failure Type     | Root Cause                              | Suggested Remediation                     |
-| ---------------- | --------------------------------------- | ----------------------------------------- |
-| OOMKilled        | Memory limit exceeded                   | Increase Kubernetes memory allocation     |
-| CrashLoopBackOff | Dependency/service startup failure      | Validate service dependencies             |
-| ImagePullBackOff | Container image fetch failure           | Verify image registry authentication      |
-| Unschedulable    | Insufficient cluster resources          | Scale cluster resources                   |
-| Config Drift     | Invalid runtime configuration           | Validate environment configuration        |
-| Network Failure  | Registry or API connectivity timeout    | Retry workflow and inspect network health |
+| Failure Type     | Root Cause                           | Suggested Remediation                 |
+| ---------------- | ------------------------------------ | ------------------------------------- |
+| OOMKilled        | Memory limit exceeded                | Increase Kubernetes memory allocation |
+| CrashLoopBackOff | Dependency/service startup failure   | Validate service dependencies         |
+| ImagePullBackOff | Container image fetch failure        | Verify image registry authentication  |
+| Unschedulable    | Insufficient cluster resources       | Scale cluster resources               |
+| Config Drift     | Invalid runtime configuration        | Validate environment configuration    |
+| Network Failure  | Registry or API connectivity timeout | Retry workflow and inspect network health |
 
 ---
 
@@ -181,6 +195,12 @@ reliability-ops-agent/
 │
 ├── memory/
 │   └── historicalFailures.json
+│
+├── screenshots/
+│   ├── dashboard-overview.png
+│   ├── investigation-workflow.png
+│   ├── workflow-timeline.png
+│   └── agent-console.png
 │
 ├── architecture/
 │   ├── system-architecture.png
@@ -310,6 +330,8 @@ Current Status:
 - Root-cause recommendation interface implemented
 - Repository architecture refactored
 - Agent workflow structure introduced
+- Workflow lifecycle visualization completed
+- Human-in-the-loop remediation design implemented
 
 ---
 
