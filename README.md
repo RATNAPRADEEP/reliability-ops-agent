@@ -1,7 +1,6 @@
+# Reliability Ops Agent
 
-# AI-Powered CI/CD Failure Intelligence Dashboard
-
-An intelligent observability dashboard designed to analyze Kubernetes and Kubeflow pipeline failures with structured failure classification, root-cause insights, and remediation recommendations.
+An agentic reliability operations platform for investigating CI/CD and Kubernetes workflow failures through operational reasoning, root-cause classification, remediation workflows, and observability intelligence.
 
 ---
 
@@ -11,79 +10,182 @@ An intelligent observability dashboard designed to analyze Kubernetes and Kubefl
   <img src="./image.png" width="900"/>
 </p>
 
-This dashboard demonstrates a modern CI/CD observability interface for analyzing Kubernetes workflow failures and pipeline execution issues.
+This dashboard demonstrates an operational reliability workflow interface for analyzing Kubernetes execution failures, CI/CD pipeline instability, and remediation planning workflows.
 
 ---
 
-# ✨ Implemented Features
+# 🧠 Why Reliability Ops?
 
-- Modern React-based CI/CD observability dashboard
-- Kubernetes workflow failure visualization
-- AI-inspired failure classification interface
-- Root-cause analysis section
-- Suggested remediation recommendations
-- Pipeline monitoring metrics
-- Responsive dashboard UI
-- Kubeflow workflow observability prototype
+Modern CI/CD systems generate operational complexity across distributed infrastructure, Kubernetes workloads, deployment orchestration, and workflow execution systems.
+
+Debugging failures often requires:
+
+- Log correlation
+- Infrastructure reasoning
+- Historical context analysis
+- Root-cause investigation
+- Remediation planning
+- Workflow observability
+
+Reliability Ops Agent explores an agentic operational workflow for CI/CD reliability engineering where specialized agents investigate failures, classify operational issues, retrieve historical context, and assist remediation workflows while preserving human operational control.
 
 ---
 
-# ⚙️ How It Works
+# ⚙️ Operational Capabilities
 
-1. User analyzes Kubernetes or pipeline failure logs
-2. Dashboard classifies common failure categories
-3. Root cause is identified using rule-based analysis
-4. Suggested remediation steps are displayed
-5. Pipeline health metrics are visualized
+- Agent-assisted CI/CD failure investigation
+- Kubernetes workflow observability
+- Structured root-cause classification
+- Historical operational context retrieval
+- Remediation workflow recommendations
+- Confidence-aware operational reasoning
+- Human-in-the-loop remediation approval design
+- Pipeline health observability
+- Reliability-oriented workflow visualization
+- Failure trend exploration
+
+---
+
+# 🔄 Operational Workflow Lifecycle
+
+```text
+Pipeline Failure Event
+        ↓
+Failure Log Ingestion
+        ↓
+Investigation Agent
+        ↓
+Failure Classification
+        ↓
+Historical Context Correlation
+        ↓
+Root-Cause Reasoning
+        ↓
+Remediation Planning
+        ↓
+Confidence Evaluation
+        ↓
+Human Approval Workflow
+        ↓
+Reliability Metrics Storage
+```
+
+---
+
+# 🧩 Agentic System Architecture
+
+```text
+CI/CD Pipeline Event
+        ↓
+Investigation Agent
+        ↓
+Classification Engine
+        ↓
+Historical Failure Memory
+        ↓
+Root-Cause Reasoning Layer
+        ↓
+Remediation Planning Agent
+        ↓
+Confidence Scoring
+        ↓
+Human Approval Workflow
+        ↓
+Observability + Reliability Metrics
+```
+
+---
+
+# 🤖 Agent Responsibilities
+
+## Investigation Agent
+
+Responsible for ingesting CI/CD failure logs, extracting operational signals, identifying failure patterns, and generating structured investigation summaries for downstream remediation workflows.
+
+---
+
+## Classification Agent
+
+Performs structured root-cause classification across infrastructure failures, dependency conflicts, flaky tests, deployment regressions, and configuration drift scenarios.
+
+---
+
+## Remediation Agent
+
+Generates remediation workflows, retry strategies, rollback recommendations, and operational guidance based on failure context and historical reliability patterns.
 
 ---
 
 # 📊 Example Failure Classification
 
-| Failure Type     | Root Cause                              | Suggested Fix                          |
-| ---------------- | --------------------------------------- | -------------------------------------- |
-| OOMKilled        | Memory limit exceeded                   | Increase Kubernetes memory limits      |
-| CrashLoopBackOff | Dependency/service startup failure      | Validate startup dependencies          |
-| ImagePullBackOff | Container image fetch failure           | Verify image registry access           |
-| Unschedulable    | Insufficient cluster resources          | Scale cluster or reduce resource usage |
+| Failure Type     | Root Cause                              | Suggested Remediation                     |
+| ---------------- | --------------------------------------- | ----------------------------------------- |
+| OOMKilled        | Memory limit exceeded                   | Increase Kubernetes memory allocation     |
+| CrashLoopBackOff | Dependency/service startup failure      | Validate service dependencies             |
+| ImagePullBackOff | Container image fetch failure           | Verify image registry authentication      |
+| Unschedulable    | Insufficient cluster resources          | Scale cluster resources                   |
+| Config Drift     | Invalid runtime configuration           | Validate environment configuration        |
+| Network Failure  | Registry or API connectivity timeout    | Retry workflow and inspect network health |
 
 ---
 
-# 🧠 Project Motivation
+# 🛡️ Operational Safety Design
 
-Debugging failed Kubeflow pipelines and Kubernetes workloads often requires:
+The platform intentionally avoids fully autonomous infrastructure remediation for high-risk operational workflows.
 
-- Manual log inspection
-- Understanding distributed system failures
-- Tracing pod lifecycle states
-- Navigating complex Kubernetes events
+Operational recommendations are confidence-scored and routed through human approval checkpoints before infrastructure-impacting actions are executed.
 
-This project aims to simplify the debugging experience through structured failure visualization and intelligent remediation guidance.
+This design prioritizes:
+
+- Operational trust
+- Auditability
+- Observability
+- Controlled automation
+- Reliability engineering safety
 
 ---
 
-# 🧩 Current Architecture
+# 📈 Reliability & Observability Goals
 
-```text
-React Frontend Dashboard
-        ↓
-Static Failure Classification Engine
-        ↓
-Root Cause Mapping
-        ↓
-Remediation Recommendation UI
-```
+The platform focuses on improving:
+
+- Pipeline reliability visibility
+- Kubernetes debugging workflows
+- Operational investigation speed
+- Failure observability
+- Root-cause traceability
+- Workflow intelligence
+- CI/CD operational awareness
 
 ---
 
 # 📁 Project Structure
 
 ```text
-AI-Powered-CI-CD-Failure-Intelligence-Dashboard/
+reliability-ops-agent/
 │
 ├── public/
 ├── src/
+├── agents/
+│   ├── investigationAgent.js
+│   ├── classificationAgent.js
+│   └── remediationAgent.js
+│
+├── workflows/
+│   └── failureWorkflow.js
+│
+├── observability/
+│   ├── metrics.js
+│   ├── pipelineHealth.js
+│   └── failureTrends.js
+│
+├── memory/
+│   └── historicalFailures.json
+│
 ├── architecture/
+│   ├── system-architecture.png
+│   ├── workflow-lifecycle.png
+│   ├── agent-flow.png
 │   ├── kubeflow-workflow-analysis.md
 │   └── failure-classification-engine.md
 │
@@ -102,6 +204,7 @@ AI-Powered-CI-CD-Failure-Intelligence-Dashboard/
 - Kubernetes Concepts
 - Kubeflow Pipelines
 - CI/CD Workflows
+- Reliability Engineering Concepts
 - Observability Systems
 
 ---
@@ -123,26 +226,29 @@ http://localhost:3000
 
 # 📌 Current Scope
 
-This prototype currently focuses on:
+Current implementation focuses on:
 
-- Frontend observability experience
-- Kubernetes failure visualization
-- Rule-based classification concepts
-- Root-cause presentation
-- Dashboard-oriented monitoring workflows
+- Operational workflow orchestration concepts
+- Kubernetes failure investigation workflows
+- Agent-assisted root-cause analysis
+- Remediation planning interfaces
+- Observability-oriented reliability systems
+- Workflow intelligence exploration
 
 ---
 
-# 🔮 Planned Enhancements
+# 🚀 Roadmap
 
-- Real Kubernetes log ingestion
-- Backend API integration
-- AI/ML-assisted failure prediction
-- Confidence scoring system
-- Real-time pipeline monitoring
-- Distributed tracing integration
-- Advanced workflow analytics
-- Historical failure trend analysis
+- Real-time Kubernetes log ingestion
+- Stateful operational memory system
+- Multi-agent investigation workflows
+- Adaptive remediation planning
+- Workflow replay system
+- Historical failure intelligence
+- Reliability scoring engine
+- Autonomous low-risk remediation workflows
+- GitHub Actions integration
+- Slack/Teams operational alerting
 
 ---
 
@@ -159,6 +265,7 @@ Topics explored include:
 - Distributed state consistency
 - Observability limitations
 - Failure visibility gaps
+- Operational reliability workflows
 
 ---
 
@@ -169,12 +276,14 @@ Planned analysis documents:
 - `architecture/kubeflow-workflow-analysis.md`
 - `architecture/failure-classification-engine.md`
 
-These documents explain:
+These documents explore:
 
 - Kubeflow execution flow
 - Kubernetes workflow lifecycle
-- Failure classification design
+- Failure classification systems
 - Observability architecture concepts
+- Reliability workflow reasoning
+- Operational orchestration models
 
 ---
 
@@ -182,11 +291,12 @@ These documents explain:
 
 This project aims to improve:
 
-- Developer productivity
-- Failure observability
-- Kubernetes debugging workflows
-- Pipeline failure understanding
-- CI/CD monitoring experience
+- Reliability engineering workflows
+- Operational debugging efficiency
+- Failure investigation visibility
+- CI/CD workflow understanding
+- Infrastructure observability
+- Agent-assisted operational workflows
 
 ---
 
@@ -195,14 +305,14 @@ This project aims to improve:
 Current Status:
 
 - Functional frontend prototype completed
-- Dashboard UI implemented
-- Failure classification interface implemented
-- Root-cause recommendation workflow implemented
-- Repository documentation improved
+- Operational dashboard UI implemented
+- Failure classification workflows implemented
+- Root-cause recommendation interface implemented
+- Repository architecture refactored
+- Agent workflow structure introduced
 
 ---
 
 # 👤 Author
 
 GitHub: https://github.com/RATNAPRADEEP
-````
