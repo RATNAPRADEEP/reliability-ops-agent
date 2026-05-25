@@ -3,7 +3,6 @@
 An agentic reliability operations platform for investigating CI/CD and Kubernetes workflow failures through operational reasoning, root-cause classification, remediation workflows, and observability intelligence.
 
 ---
-## Live Demo
 
 ## Live Demo
 
