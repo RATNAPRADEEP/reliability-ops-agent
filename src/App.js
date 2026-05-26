@@ -1,22 +1,117 @@
-import './App.css';
-import dashboardData from "./mock/dashboardData.json";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
+import "./App.css";
+
+import { motion } from "framer-motion";
+
+import {
+  LineChart,
+  Line,
+  XAxis,
+  YAxis,
+  Tooltip,
+  CartesianGrid,
+  ResponsiveContainer,
+  BarChart,
+  Bar,
+} from "recharts";
 
 function App() {
 
-  const [liveData, setLiveData] = useState(dashboardData);
+  const [dashboardData, setDashboardData] = useState({
+    totalPipelines: 128,
+    activeIncidents: 12,
+    runningWorkflows: 7,
+    recoveryRate: 92,
+    incidentSeverity: "High",
+    clusterRegion: "us-east-1",
+    lastUpdated: "12 seconds ago",
+    activeAgents: 4,
+
+    aiRiskScore: 87,
+
+    failureEvent:
+      "payment-workflow • CrashLoopBackOff",
+
+    investigationAgent:
+      "Operational signals extracted from CI/CD logs",
+
+    rootCause:
+      "Dependency container failed startup health checks during orchestration.",
+
+    historicalCorrelation:
+      "Similar failure detected 14 times in previous deployment cycles.",
+
+    remediationPlan:
+      "Increase startup probe timeout and validate downstream service dependencies.",
+
+    confidenceScore:
+      "0.91 • High Reliability",
+
+    approvalStatus:
+      "Awaiting Reliability Engineer Approval",
+
+    workflowTimeline: [
+      "Failure Detection Completed",
+      "Investigation Workflow Completed",
+      "Root-Cause Classification Completed",
+      "Historical Context Retrieved",
+      "Awaiting Human Approval",
+    ],
+
+    systemHealth: {
+      kubernetes:
+        "Healthy • API latency normal",
+
+      orchestration:
+        "Active • 18 workflows managed",
+
+      observability:
+        "Synced • Reliability metrics operational",
+
+      aiEngine:
+        "Online • Monitoring pipeline anomalies",
+    },
+
+    metrics: {
+      mttr: "18 mins",
+
+      recurringFailures:
+        "Medium • 14 repeated failures detected",
+
+      pipelineScore: "87 / 100",
+
+      riskLevel: "Medium",
+    },
+  });
 
   useEffect(() => {
 
     const interval = setInterval(() => {
 
-      const severities = ["Low", "Medium", "High", "Critical"];
+      const incidentCount =
+        Math.floor(Math.random() * 20) + 1;
+
+      const workflows =
+        Math.floor(Math.random() * 15) + 1;
+
+      const recovery =
+        Math.floor(Math.random() * 10) + 90;
+
+      const aiScore =
+        Math.floor(Math.random() * 20) + 80;
+
+      const severities = [
+        "Low",
+        "Medium",
+        "High",
+        "Critical",
+      ];
 
       const regions = [
         "us-east-1",
         "us-west-2",
         "eu-central-1",
-        "ap-south-1"
+        "ap-south-1",
       ];
 
       const failures = [
@@ -24,159 +119,109 @@ function App() {
         "auth-service • ImagePullBackOff",
         "checkout-api • OOMKilled",
         "inventory-worker • NodeFailure",
-        "billing-engine • ProbeTimeout"
+        "billing-engine • ProbeTimeout",
       ];
 
-      const randomSeverity =
-        severities[Math.floor(Math.random() * severities.length)];
+      const severity =
+        severities[
+          Math.floor(
+            Math.random() * severities.length
+          )
+        ];
 
-      const randomRegion =
-        regions[Math.floor(Math.random() * regions.length)];
+      setDashboardData({
 
-      const randomFailure =
-        failures[Math.floor(Math.random() * failures.length)];
+        totalPipelines:
+          120 + Math.floor(Math.random() * 20),
 
-      setLiveData({
+        activeIncidents: incidentCount,
 
-        ...dashboardData,
+        runningWorkflows: workflows,
 
-        metrics: {
-          totalPipelines: 120 + Math.floor(Math.random() * 25),
-          activeIncidents: Math.floor(Math.random() * 20) + 1,
-          runningWorkflows: Math.floor(Math.random() * 15) + 1,
-          recoveryRate: 90 + Math.floor(Math.random() * 10)
-        },
+        recoveryRate: recovery,
 
-        incidentSummary: {
-          severity: randomSeverity,
-          region: randomRegion,
-          lastUpdated: "Live operational update",
-          activeAgents:
-            `${Math.floor(Math.random() * 5) + 3} operational agents online`
-        },
+        incidentSeverity: severity,
 
-        investigationWorkflow: {
-          failureEvent: randomFailure,
-          investigationAgent:
-            "Operational signals dynamically analyzed from CI/CD telemetry.",
-          rootCause:
-            "Automated reliability engine identified orchestration instability.",
-          historicalCorrelation:
-            "Historical deployment anomalies correlated with current incident patterns.",
-          remediationPlan:
-            "AI remediation workflow generated mitigation recommendations.",
-          confidenceScore:
-            `${(Math.random() * (0.99 - 0.80) + 0.80).toFixed(2)} • AI Reliability Confidence`,
-          approvalStatus:
-            Math.random() > 0.5
-              ? "Awaiting Reliability Engineer Approval"
-              : "Auto-remediation approved"
-        },
+        clusterRegion:
+          regions[
+            Math.floor(
+              Math.random() * regions.length
+            )
+          ],
+
+        lastUpdated:
+          "Live operational update",
+
+        activeAgents:
+          Math.floor(Math.random() * 5) + 3,
+
+        aiRiskScore: aiScore,
+
+        failureEvent:
+          failures[
+            Math.floor(
+              Math.random() * failures.length
+            )
+          ],
+
+        investigationAgent:
+          "Operational telemetry dynamically analyzed from CI/CD systems.",
+
+        rootCause:
+          "AI reliability engine detected orchestration instability in Kubernetes workflows.",
+
+        historicalCorrelation:
+          "Historical deployment anomalies correlated with present operational patterns.",
+
+        remediationPlan:
+          "Automated remediation workflow generated infrastructure recovery recommendations.",
+
+        confidenceScore: `${(
+          Math.random() * (0.99 - 0.80) +
+          0.80
+        ).toFixed(2)} • AI Reliability Confidence`,
+
+        approvalStatus:
+          Math.random() > 0.5
+            ? "Awaiting Reliability Engineer Approval"
+            : "Auto-remediation approved",
 
         workflowTimeline: [
-          {
-            message: "Failure Detection Completed",
-            status: "success"
-          },
-          {
-            message: "CI/CD Telemetry Aggregated",
-            status: "success"
-          },
-          {
-            message: "AI Root-Cause Analysis Running",
-            status: "success"
-          },
-          {
-            message: "Historical Failure Correlation Generated",
-            status: "success"
-          },
-          {
-            message: "Operational Mitigation Workflow Triggered",
-            status: "warning"
-          }
+          "Failure Detection Completed",
+          "CI/CD Telemetry Aggregated",
+          "AI Root-Cause Analysis Running",
+          "Historical Failure Correlation Generated",
+          "Operational Mitigation Workflow Triggered",
         ],
 
-        agentStatus: [
-          {
-            name: "Investigation Agent",
-            status: "Active",
-            message: "Processing operational logs",
-            type: "success"
-          },
-          {
-            name: "Classification Agent",
-            status: "Running",
-            message: "Root-cause workflow completed",
-            type: "success"
-          },
-          {
-            name: "Remediation Agent",
-            status: "Waiting",
-            message: "Human approval required",
-            type: "warning"
-          },
-          {
-            name: "Historical Memory Layer",
-            status: "Synced",
-            message:
-              `${Math.floor(Math.random() * 300)} incident patterns indexed`,
-            type: "metric-highlight"
-          }
-        ],
+        systemHealth: {
 
-        systemHealth: [
-          {
-            component: "Kubernetes Cluster",
-            message: "Healthy • API latency stable",
-            type: "success"
-          },
-          {
-            component: "Workflow Orchestration Layer",
-            message:
-              `Active • ${Math.floor(Math.random() * 20)} workflows managed`,
-            type: "success"
-          },
-          {
-            component: "Observability Engine",
-            message: "Synced • Monitoring agents operational",
-            type: "success"
-          },
-          {
-            component: "AI Reliability Operations Engine",
-            message: "Online • AI anomaly detection active",
-            type: "success"
-          }
-        ],
+          kubernetes:
+            "Healthy • API latency stable",
 
-        reliabilityMetrics: [
-          {
-            label: "Mean Time To Resolution (MTTR)",
-            value:
-              `${Math.floor(Math.random() * 30) + 10} mins`,
-            type: "value"
-          },
-          {
-            label: "Recurring Incident Frequency",
-            value:
-              `${randomSeverity} • ${Math.floor(Math.random() * 20)} anomaly patterns detected`,
-            type: "warning"
-          },
-          {
-            label: "Pipeline Health Score",
-            value:
-              `${Math.floor(Math.random() * 20) + 80} / 100`,
-            type: "metric-highlight"
-          },
-          {
-            label: "Operational Risk Level",
-            value: randomSeverity,
-            type:
-              randomSeverity === "Critical"
-                ? "danger"
-                : "warning"
-          }
-        ]
+          orchestration:
+            `Active • ${workflows} workflows managed`,
 
+          observability:
+            "Synced • Monitoring agents operational",
+
+          aiEngine:
+            "Online • AI anomaly detection active",
+        },
+
+        metrics: {
+
+          mttr:
+            `${Math.floor(Math.random() * 30) + 10} mins`,
+
+          recurringFailures:
+            `${severity} • ${incidentCount} anomaly patterns detected`,
+
+          pipelineScore:
+            `${aiScore} / 100`,
+
+          riskLevel: severity,
+        },
       });
 
     }, 4000);
@@ -185,223 +230,277 @@ function App() {
 
   }, []);
 
-  const {
-    metrics,
-    incidentSummary,
-    investigationWorkflow,
-    workflowTimeline,
-    agentStatus,
-    systemHealth,
-    reliabilityMetrics
-  } = liveData;
+  const reliabilityTrendData = [
+    { time: "10:00", incidents: 4, recovery: 82 },
+    { time: "11:00", incidents: 7, recovery: 85 },
+    { time: "12:00", incidents: 5, recovery: 88 },
+    { time: "13:00", incidents: 9, recovery: 80 },
+    { time: "14:00", incidents: 6, recovery: 91 },
+    { time: "15:00", incidents: 3, recovery: 95 },
+  ];
+
+  const workflowData = [
+    { name: "Detection", workflows: 14 },
+    { name: "Analysis", workflows: 10 },
+    { name: "Remediation", workflows: 7 },
+    { name: "Approval", workflows: 5 },
+  ];
 
   return (
-    <div className="app">
 
-      <div className="title">
+    <div className="container">
+
+      <motion.h1
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+      >
         Reliability Ops Agent
+      </motion.h1>
+
+      <p>
+        Agentic Operational Workflow System for
+        CI/CD Reliability Engineering
+      </p>
+
+      <div className="cards">
+
+        <motion.div
+          whileHover={{ scale: 1.04 }}
+          className="card"
+        >
+          <h3>Total Pipelines</h3>
+          <h1>{dashboardData.totalPipelines}</h1>
+        </motion.div>
+
+        <motion.div
+          whileHover={{ scale: 1.04 }}
+          className="card"
+        >
+          <h3>Active Reliability Incidents</h3>
+          <h1>{dashboardData.activeIncidents}</h1>
+        </motion.div>
+
+        <motion.div
+          whileHover={{ scale: 1.04 }}
+          className="card"
+        >
+          <h3>Running Workflows</h3>
+          <h1>{dashboardData.runningWorkflows}</h1>
+        </motion.div>
+
+        <motion.div
+          whileHover={{ scale: 1.04 }}
+          className="card"
+        >
+          <h3>Recovery Success Rate</h3>
+          <h1>{dashboardData.recoveryRate}%</h1>
+        </motion.div>
+
       </div>
 
-      <div className="subtitle">
-        Agentic Operational Workflow System for CI/CD Reliability Engineering
-      </div>
+      <motion.div
+        className="section"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+      >
 
-      <div className="top-nav">
-        <span>Overview</span>
-        <span>Workflows</span>
-        <span>Incidents</span>
-        <span>Agents</span>
-        <span>Observability</span>
-      </div>
+        <h2>AI Incident Scoring Engine</h2>
 
-      <div className="dashboard-grid">
+        <h1>{dashboardData.aiRiskScore}/100</h1>
 
-        <div className="card">
-          <h2>Total Pipelines</h2>
-          <p>{metrics.totalPipelines}</p>
-        </div>
+        <p>
+          AI operational risk scoring based on
+          anomaly frequency, workflow instability,
+          retry failures, and infrastructure severity.
+        </p>
 
-        <div className="card">
-          <h2>Active Reliability Incidents</h2>
-          <p className="danger">{metrics.activeIncidents}</p>
-        </div>
+      </motion.div>
 
-        <div className="card">
-          <h2>Running Workflows</h2>
-          <p className="success">{metrics.runningWorkflows}</p>
-        </div>
-
-        <div className="card">
-          <h2>Recovery Success Rate</h2>
-          <p className="metric-highlight">
-            {metrics.recoveryRate}%
-          </p>
-        </div>
-
-      </div>
-
-      <div className="analysis-box">
+      <div className="section">
 
         <h2>Operational Incident Summary</h2>
 
-        <div className="label">Incident Severity</div>
-        <div className="value danger">
-          {incidentSummary.severity}
-        </div>
+        <p>
+          <strong>Incident Severity:</strong>
+          {" "}
+          {dashboardData.incidentSeverity}
+        </p>
 
-        <div className="label">Cluster Region</div>
-        <div className="value">
-          {incidentSummary.region}
-        </div>
+        <p>
+          <strong>Cluster Region:</strong>
+          {" "}
+          {dashboardData.clusterRegion}
+        </p>
 
-        <div className="label">Last Updated</div>
-        <div className="value">
-          {incidentSummary.lastUpdated}
-        </div>
+        <p>
+          <strong>Last Updated:</strong>
+          {" "}
+          {dashboardData.lastUpdated}
+        </p>
 
-        <div className="label">Active Agents</div>
-        <div className="value">
-          {incidentSummary.activeAgents}
-        </div>
+        <p>
+          <strong>Active Agents:</strong>
+          {" "}
+          {dashboardData.activeAgents}
+        </p>
 
       </div>
 
-      <div className="analysis-box">
+      <div className="section">
 
         <h2>Investigation Workflow</h2>
 
-        <div className="label">Failure Event</div>
-        <div className="value danger">
-          {investigationWorkflow.failureEvent}
-        </div>
+        <p>
+          <strong>Failure Event:</strong>
+          {" "}
+          {dashboardData.failureEvent}
+        </p>
 
-        <div className="label">Investigation Agent</div>
-        <div className="value">
-          {investigationWorkflow.investigationAgent}
-        </div>
+        <p>
+          <strong>Investigation Agent:</strong>
+          {" "}
+          {dashboardData.investigationAgent}
+        </p>
 
-        <div className="label">Operational Root Cause</div>
-        <div className="value">
-          {investigationWorkflow.rootCause}
-        </div>
+        <p>
+          <strong>Operational Root Cause:</strong>
+          {" "}
+          {dashboardData.rootCause}
+        </p>
 
-        <div className="label">Historical Correlation</div>
-        <div className="value">
-          {investigationWorkflow.historicalCorrelation}
-        </div>
+        <p>
+          <strong>Historical Correlation:</strong>
+          {" "}
+          {dashboardData.historicalCorrelation}
+        </p>
 
-        <div className="label">Remediation Plan</div>
-        <div className="value">
-          {investigationWorkflow.remediationPlan}
-        </div>
-
-        <div className="label">Confidence Score</div>
-        <div className="value metric-highlight">
-          {investigationWorkflow.confidenceScore}
-        </div>
-
-        <div className="label">Approval Status</div>
-        <div className="value warning">
-          {investigationWorkflow.approvalStatus}
-        </div>
+        <p>
+          <strong>Remediation Plan:</strong>
+          {" "}
+          {dashboardData.remediationPlan}
+        </p>
 
       </div>
 
-      <div className="analysis-box">
+      <motion.div
+        className="section"
+        animate={{ opacity: [0.7, 1, 0.7] }}
+        transition={{
+          repeat: Infinity,
+          duration: 4,
+        }}
+      >
 
         <h2>Workflow Timeline</h2>
 
-        {
-          workflowTimeline.map((step, index) => (
+        <ul>
+          {dashboardData.workflowTimeline.map(
+            (step, index) => (
+              <li key={index}>{step}</li>
+            )
+          )}
+        </ul>
 
-            <div className="workflow-step" key={index}>
+      </motion.div>
 
-              <div
-                className={
-                  step.status === "warning"
-                    ? "status-dot warning"
-                    : "status-dot"
-                }
-              ></div>
-
-              <div>{step.message}</div>
-
-            </div>
-
-          ))
-        }
-
-      </div>
-
-      <div className="analysis-box">
-
-        <h2>Agent Status Console</h2>
-
-        {
-          agentStatus.map((agent, index) => (
-
-            <div key={index}>
-
-              <div className="label">
-                {agent.name}
-              </div>
-
-              <div className={`value ${agent.type}`}>
-                {agent.status} • {agent.message}
-              </div>
-
-            </div>
-
-          ))
-        }
-
-      </div>
-
-      <div className="analysis-box">
-
-        <h2>System Health Overview</h2>
-
-        {
-          systemHealth.map((item, index) => (
-
-            <div key={index}>
-
-              <div className="label">
-                {item.component}
-              </div>
-
-              <div className={`value ${item.type}`}>
-                {item.message}
-              </div>
-
-            </div>
-
-          ))
-        }
-
-      </div>
-
-      <div className="analysis-box">
+      <div className="section">
 
         <h2>Reliability Metrics</h2>
 
-        {
-          reliabilityMetrics.map((metric, index) => (
+        <p>
+          <strong>MTTR:</strong>
+          {" "}
+          {dashboardData.metrics.mttr}
+        </p>
 
-            <div key={index}>
+        <p>
+          <strong>Recurring Failures:</strong>
+          {" "}
+          {
+            dashboardData.metrics
+              .recurringFailures
+          }
+        </p>
 
-              <div className="label">
-                {metric.label}
-              </div>
+        <p>
+          <strong>Pipeline Health:</strong>
+          {" "}
+          {
+            dashboardData.metrics
+              .pipelineScore
+          }
+        </p>
 
-              <div className={`value ${metric.type}`}>
-                {metric.value}
-              </div>
+      </div>
 
-            </div>
+      <div className="section">
 
-          ))
-        }
+        <h2>Incident Recovery Analytics</h2>
+
+        <ResponsiveContainer
+          width="100%"
+          height={300}
+        >
+
+          <LineChart
+            data={reliabilityTrendData}
+          >
+
+            <CartesianGrid strokeDasharray="3 3" />
+
+            <XAxis dataKey="time" />
+
+            <YAxis />
+
+            <Tooltip />
+
+            <Line
+              type="monotone"
+              dataKey="incidents"
+              stroke="#ff4d6d"
+              strokeWidth={3}
+            />
+
+            <Line
+              type="monotone"
+              dataKey="recovery"
+              stroke="#00ffae"
+              strokeWidth={3}
+            />
+
+          </LineChart>
+
+        </ResponsiveContainer>
+
+      </div>
+
+      <div className="section">
+
+        <h2>Workflow Execution Analytics</h2>
+
+        <ResponsiveContainer
+          width="100%"
+          height={300}
+        >
+
+          <BarChart data={workflowData}>
+
+            <CartesianGrid strokeDasharray="3 3" />
+
+            <XAxis dataKey="name" />
+
+            <YAxis />
+
+            <Tooltip />
+
+            <Bar
+              dataKey="workflows"
+              fill="#4f7cff"
+            />
+
+          </BarChart>
+
+        </ResponsiveContainer>
 
       </div>
 
