@@ -1,6 +1,18 @@
 import './App.css';
+import dashboardData from "./mock/dashboardData.json";
 
 function App() {
+
+  const {
+    metrics,
+    incidentSummary,
+    investigationWorkflow,
+    workflowTimeline,
+    agentStatus,
+    systemHealth,
+    reliabilityMetrics
+  } = dashboardData;
+
   return (
     <div className="app">
 
@@ -24,28 +36,30 @@ function App() {
         <span>Observability</span>
       </div>
 
-      {/* Operational Overview */}
+      {/* Dashboard Metrics */}
 
       <div className="dashboard-grid">
 
         <div className="card">
           <h2>Total Pipelines</h2>
-          <p>128</p>
+          <p>{metrics.totalPipelines}</p>
         </div>
 
         <div className="card">
           <h2>Active Reliability Incidents</h2>
-          <p className="danger">12</p>
+          <p className="danger">{metrics.activeIncidents}</p>
         </div>
 
         <div className="card">
           <h2>Running Workflows</h2>
-          <p className="success">7</p>
+          <p className="success">{metrics.runningWorkflows}</p>
         </div>
 
         <div className="card">
           <h2>Recovery Success Rate</h2>
-          <p className="metric-highlight">92%</p>
+          <p className="metric-highlight">
+            {metrics.recoveryRate}%
+          </p>
         </div>
 
       </div>
@@ -58,22 +72,22 @@ function App() {
 
         <div className="label">Incident Severity</div>
         <div className="value danger">
-          High
+          {incidentSummary.severity}
         </div>
 
         <div className="label">Cluster Region</div>
         <div className="value">
-          us-east-1
+          {incidentSummary.region}
         </div>
 
         <div className="label">Last Updated</div>
         <div className="value">
-          12 seconds ago
+          {incidentSummary.lastUpdated}
         </div>
 
         <div className="label">Active Agents</div>
         <div className="value">
-          4 operational agents online
+          {incidentSummary.activeAgents}
         </div>
 
       </div>
@@ -86,37 +100,37 @@ function App() {
 
         <div className="label">Failure Event</div>
         <div className="value danger">
-          payment-workflow • CrashLoopBackOff
+          {investigationWorkflow.failureEvent}
         </div>
 
         <div className="label">Investigation Agent</div>
         <div className="value">
-          Operational signals extracted from CI/CD logs
+          {investigationWorkflow.investigationAgent}
         </div>
 
         <div className="label">Operational Root Cause</div>
         <div className="value">
-          Dependency container failed startup health checks during orchestration.
+          {investigationWorkflow.rootCause}
         </div>
 
         <div className="label">Historical Correlation</div>
         <div className="value">
-          Similar failure detected 14 times in previous deployment cycles.
+          {investigationWorkflow.historicalCorrelation}
         </div>
 
         <div className="label">Remediation Plan</div>
         <div className="value">
-          Increase startup probe timeout and validate downstream service dependencies.
+          {investigationWorkflow.remediationPlan}
         </div>
 
         <div className="label">Confidence Score</div>
         <div className="value metric-highlight">
-          0.91 • High Reliability
+          {investigationWorkflow.confidenceScore}
         </div>
 
         <div className="label">Approval Status</div>
         <div className="value warning">
-          Awaiting Reliability Engineer Approval
+          {investigationWorkflow.approvalStatus}
         </div>
 
       </div>
@@ -127,58 +141,51 @@ function App() {
 
         <h2>Workflow Timeline</h2>
 
-        <div className="workflow-step">
-          <div className="status-dot"></div>
-          <div>Failure Detection Completed</div>
-        </div>
+        {
+          workflowTimeline.map((step, index) => (
 
-        <div className="workflow-step">
-          <div className="status-dot"></div>
-          <div>Investigation Workflow Completed</div>
-        </div>
+            <div className="workflow-step" key={index}>
 
-        <div className="workflow-step">
-          <div className="status-dot"></div>
-          <div>Root-Cause Classification Completed</div>
-        </div>
+              <div
+                className={
+                  step.status === "warning"
+                    ? "status-dot warning"
+                    : "status-dot"
+                }
+              ></div>
 
-        <div className="workflow-step">
-          <div className="status-dot"></div>
-          <div>Historical Context Retrieved</div>
-        </div>
+              <div>{step.message}</div>
 
-        <div className="workflow-step">
-          <div className="status-dot warning"></div>
-          <div>Awaiting Human Approval</div>
-        </div>
+            </div>
+
+          ))
+        }
 
       </div>
 
-      {/* Agent Status */}
+      {/* Agent Status Console */}
 
       <div className="analysis-box">
 
         <h2>Agent Status Console</h2>
 
-        <div className="label">Investigation Agent</div>
-        <div className="value success">
-          Active • Processing operational logs
-        </div>
+        {
+          agentStatus.map((agent, index) => (
 
-        <div className="label">Classification Agent</div>
-        <div className="value success">
-          Running • Root-cause workflow completed
-        </div>
+            <div key={index}>
 
-        <div className="label">Remediation Agent</div>
-        <div className="value warning">
-          Waiting • Human approval required
-        </div>
+              <div className="label">
+                {agent.name}
+              </div>
 
-        <div className="label">Historical Memory Layer</div>
-        <div className="value success">
-          Synced • 248 incident patterns indexed
-        </div>
+              <div className={`value ${agent.type}`}>
+                {agent.status} • {agent.message}
+              </div>
+
+            </div>
+
+          ))
+        }
 
       </div>
 
@@ -188,25 +195,23 @@ function App() {
 
         <h2>System Health Overview</h2>
 
-        <div className="label">Kubernetes Cluster</div>
-        <div className="value success">
-          Healthy • API latency normal
-        </div>
+        {
+          systemHealth.map((item, index) => (
 
-        <div className="label">Workflow Orchestration Layer</div>
-        <div className="value success">
-          Active • 18 workflows managed
-        </div>
+            <div key={index}>
 
-        <div className="label">Observability Engine</div>
-        <div className="value success">
-          Synced • Reliability metrics operational
-        </div>
+              <div className="label">
+                {item.component}
+              </div>
 
-        <div className="label">AI Reliability Operations Engine</div>
-        <div className="value success">
-          Online • Monitoring pipeline anomalies
-        </div>
+              <div className={`value ${item.type}`}>
+                {item.message}
+              </div>
+
+            </div>
+
+          ))
+        }
 
       </div>
 
@@ -216,25 +221,23 @@ function App() {
 
         <h2>Reliability Metrics</h2>
 
-        <div className="label">Mean Time To Resolution (MTTR)</div>
-        <div className="value">
-          18 mins
-        </div>
+        {
+          reliabilityMetrics.map((metric, index) => (
 
-        <div className="label">Recurring Incident Frequency</div>
-        <div className="value">
-          Medium • 14 repeated failures detected
-        </div>
+            <div key={index}>
 
-        <div className="label">Pipeline Health Score</div>
-        <div className="value metric-highlight">
-          87 / 100
-        </div>
+              <div className="label">
+                {metric.label}
+              </div>
 
-        <div className="label">Operational Risk Level</div>
-        <div className="value warning">
-          Medium
-        </div>
+              <div className={`value ${metric.type}`}>
+                {metric.value}
+              </div>
+
+            </div>
+
+          ))
+        }
 
       </div>
 

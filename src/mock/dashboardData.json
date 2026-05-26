@@ -1,0 +1,121 @@
+{
+  "metrics": {
+    "totalPipelines": 128,
+    "activeIncidents": 12,
+    "runningWorkflows": 7,
+    "recoveryRate": 92
+  },
+
+  "incidentSummary": {
+    "severity": "High",
+    "region": "us-east-1",
+    "lastUpdated": "12 seconds ago",
+    "activeAgents": "4 operational agents online"
+  },
+
+  "investigationWorkflow": {
+    "failureEvent": "payment-workflow • CrashLoopBackOff",
+    "investigationAgent": "Operational signals extracted from CI/CD logs",
+    "rootCause": "Dependency container failed startup health checks during orchestration.",
+    "historicalCorrelation": "Similar failure detected 14 times in previous deployment cycles.",
+    "remediationPlan": "Increase startup probe timeout and validate downstream service dependencies.",
+    "confidenceScore": "0.91 • High Reliability",
+    "approvalStatus": "Awaiting Reliability Engineer Approval"
+  },
+
+  "workflowTimeline": [
+    {
+      "message": "Failure Detection Completed",
+      "status": "success"
+    },
+    {
+      "message": "Investigation Workflow Completed",
+      "status": "success"
+    },
+    {
+      "message": "Root-Cause Classification Completed",
+      "status": "success"
+    },
+    {
+      "message": "Historical Context Retrieved",
+      "status": "success"
+    },
+    {
+      "message": "Awaiting Human Approval",
+      "status": "warning"
+    }
+  ],
+
+  "agentStatus": [
+    {
+      "name": "Investigation Agent",
+      "status": "Active",
+      "message": "Processing operational logs",
+      "type": "success"
+    },
+    {
+      "name": "Classification Agent",
+      "status": "Running",
+      "message": "Root-cause workflow completed",
+      "type": "success"
+    },
+    {
+      "name": "Remediation Agent",
+      "status": "Waiting",
+      "message": "Human approval required",
+      "type": "warning"
+    },
+    {
+      "name": "Historical Memory Layer",
+      "status": "Synced",
+      "message": "248 incident patterns indexed",
+      "type": "success"
+    }
+  ],
+
+  "systemHealth": [
+    {
+      "component": "Kubernetes Cluster",
+      "message": "Healthy • API latency normal",
+      "type": "success"
+    },
+    {
+      "component": "Workflow Orchestration Layer",
+      "message": "Active • 18 workflows managed",
+      "type": "success"
+    },
+    {
+      "component": "Observability Engine",
+      "message": "Synced • Reliability metrics operational",
+      "type": "success"
+    },
+    {
+      "component": "AI Reliability Operations Engine",
+      "message": "Online • Monitoring pipeline anomalies",
+      "type": "success"
+    }
+  ],
+
+  "reliabilityMetrics": [
+    {
+      "label": "Mean Time To Resolution (MTTR)",
+      "value": "18 mins",
+      "type": ""
+    },
+    {
+      "label": "Recurring Incident Frequency",
+      "value": "Medium • 14 repeated failures detected",
+      "type": ""
+    },
+    {
+      "label": "Pipeline Health Score",
+      "value": "87 / 100",
+      "type": "metric-highlight"
+    },
+    {
+      "label": "Operational Risk Level",
+      "value": "Medium",
+      "type": "warning"
+    }
+  ]
+}
