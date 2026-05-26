@@ -30,6 +30,10 @@ This dashboard demonstrates an operational reliability workflow interface for an
 
 ![Workflow Timeline](screenshots/workflow-agent-console.png)
 
+## incident-recovery-and-workflow-analysis
+
+![incident-recovery](screenshots/incident-recovery-and-workflow-analysis.png)
+
 ---
 
 # 🧠 Why Reliability Ops?
