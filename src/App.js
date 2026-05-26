@@ -1,7 +1,189 @@
 import './App.css';
 import dashboardData from "./mock/dashboardData.json";
+import { useEffect, useState } from "react";
 
 function App() {
+
+  const [liveData, setLiveData] = useState(dashboardData);
+
+  useEffect(() => {
+
+    const interval = setInterval(() => {
+
+      const severities = ["Low", "Medium", "High", "Critical"];
+
+      const regions = [
+        "us-east-1",
+        "us-west-2",
+        "eu-central-1",
+        "ap-south-1"
+      ];
+
+      const failures = [
+        "payment-workflow • CrashLoopBackOff",
+        "auth-service • ImagePullBackOff",
+        "checkout-api • OOMKilled",
+        "inventory-worker • NodeFailure",
+        "billing-engine • ProbeTimeout"
+      ];
+
+      const randomSeverity =
+        severities[Math.floor(Math.random() * severities.length)];
+
+      const randomRegion =
+        regions[Math.floor(Math.random() * regions.length)];
+
+      const randomFailure =
+        failures[Math.floor(Math.random() * failures.length)];
+
+      setLiveData({
+
+        ...dashboardData,
+
+        metrics: {
+          totalPipelines: 120 + Math.floor(Math.random() * 25),
+          activeIncidents: Math.floor(Math.random() * 20) + 1,
+          runningWorkflows: Math.floor(Math.random() * 15) + 1,
+          recoveryRate: 90 + Math.floor(Math.random() * 10)
+        },
+
+        incidentSummary: {
+          severity: randomSeverity,
+          region: randomRegion,
+          lastUpdated: "Live operational update",
+          activeAgents:
+            `${Math.floor(Math.random() * 5) + 3} operational agents online`
+        },
+
+        investigationWorkflow: {
+          failureEvent: randomFailure,
+          investigationAgent:
+            "Operational signals dynamically analyzed from CI/CD telemetry.",
+          rootCause:
+            "Automated reliability engine identified orchestration instability.",
+          historicalCorrelation:
+            "Historical deployment anomalies correlated with current incident patterns.",
+          remediationPlan:
+            "AI remediation workflow generated mitigation recommendations.",
+          confidenceScore:
+            `${(Math.random() * (0.99 - 0.80) + 0.80).toFixed(2)} • AI Reliability Confidence`,
+          approvalStatus:
+            Math.random() > 0.5
+              ? "Awaiting Reliability Engineer Approval"
+              : "Auto-remediation approved"
+        },
+
+        workflowTimeline: [
+          {
+            message: "Failure Detection Completed",
+            status: "success"
+          },
+          {
+            message: "CI/CD Telemetry Aggregated",
+            status: "success"
+          },
+          {
+            message: "AI Root-Cause Analysis Running",
+            status: "success"
+          },
+          {
+            message: "Historical Failure Correlation Generated",
+            status: "success"
+          },
+          {
+            message: "Operational Mitigation Workflow Triggered",
+            status: "warning"
+          }
+        ],
+
+        agentStatus: [
+          {
+            name: "Investigation Agent",
+            status: "Active",
+            message: "Processing operational logs",
+            type: "success"
+          },
+          {
+            name: "Classification Agent",
+            status: "Running",
+            message: "Root-cause workflow completed",
+            type: "success"
+          },
+          {
+            name: "Remediation Agent",
+            status: "Waiting",
+            message: "Human approval required",
+            type: "warning"
+          },
+          {
+            name: "Historical Memory Layer",
+            status: "Synced",
+            message:
+              `${Math.floor(Math.random() * 300)} incident patterns indexed`,
+            type: "metric-highlight"
+          }
+        ],
+
+        systemHealth: [
+          {
+            component: "Kubernetes Cluster",
+            message: "Healthy • API latency stable",
+            type: "success"
+          },
+          {
+            component: "Workflow Orchestration Layer",
+            message:
+              `Active • ${Math.floor(Math.random() * 20)} workflows managed`,
+            type: "success"
+          },
+          {
+            component: "Observability Engine",
+            message: "Synced • Monitoring agents operational",
+            type: "success"
+          },
+          {
+            component: "AI Reliability Operations Engine",
+            message: "Online • AI anomaly detection active",
+            type: "success"
+          }
+        ],
+
+        reliabilityMetrics: [
+          {
+            label: "Mean Time To Resolution (MTTR)",
+            value:
+              `${Math.floor(Math.random() * 30) + 10} mins`,
+            type: "value"
+          },
+          {
+            label: "Recurring Incident Frequency",
+            value:
+              `${randomSeverity} • ${Math.floor(Math.random() * 20)} anomaly patterns detected`,
+            type: "warning"
+          },
+          {
+            label: "Pipeline Health Score",
+            value:
+              `${Math.floor(Math.random() * 20) + 80} / 100`,
+            type: "metric-highlight"
+          },
+          {
+            label: "Operational Risk Level",
+            value: randomSeverity,
+            type:
+              randomSeverity === "Critical"
+                ? "danger"
+                : "warning"
+          }
+        ]
+
+      });
+
+    }, 4000);
+
+    return () => clearInterval(interval);
+
+  }, []);
 
   const {
     metrics,
@@ -11,12 +193,10 @@ function App() {
     agentStatus,
     systemHealth,
     reliabilityMetrics
-  } = dashboardData;
+  } = liveData;
 
   return (
     <div className="app">
-
-      {/* Header */}
 
       <div className="title">
         Reliability Ops Agent
@@ -26,8 +206,6 @@ function App() {
         Agentic Operational Workflow System for CI/CD Reliability Engineering
       </div>
 
-      {/* Top Navigation */}
-
       <div className="top-nav">
         <span>Overview</span>
         <span>Workflows</span>
@@ -35,8 +213,6 @@ function App() {
         <span>Agents</span>
         <span>Observability</span>
       </div>
-
-      {/* Dashboard Metrics */}
 
       <div className="dashboard-grid">
 
@@ -64,8 +240,6 @@ function App() {
 
       </div>
 
-      {/* Incident Summary */}
-
       <div className="analysis-box">
 
         <h2>Operational Incident Summary</h2>
@@ -91,8 +265,6 @@ function App() {
         </div>
 
       </div>
-
-      {/* Investigation Workflow */}
 
       <div className="analysis-box">
 
@@ -135,8 +307,6 @@ function App() {
 
       </div>
 
-      {/* Workflow Timeline */}
-
       <div className="analysis-box">
 
         <h2>Workflow Timeline</h2>
@@ -163,8 +333,6 @@ function App() {
 
       </div>
 
-      {/* Agent Status Console */}
-
       <div className="analysis-box">
 
         <h2>Agent Status Console</h2>
@@ -189,8 +357,6 @@ function App() {
 
       </div>
 
-      {/* System Health */}
-
       <div className="analysis-box">
 
         <h2>System Health Overview</h2>
@@ -214,8 +380,6 @@ function App() {
         }
 
       </div>
-
-      {/* Reliability Metrics */}
 
       <div className="analysis-box">
 
