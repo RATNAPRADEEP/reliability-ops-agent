@@ -333,7 +333,7 @@ function App() {
 
     return () => clearInterval(interval);
 
-  }, [reliabilityCases.length, workflowTimelineSets.length]);
+  }, [reliabilityCases.length, workflowCases.length]);
 
   useEffect(() => {
 
