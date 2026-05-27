@@ -29,6 +29,164 @@ function App() {
     agents: 6,
   });
 
+  const workflowCases = [
+
+    {
+      event:
+        "payment-workflow • CrashLoopBackOff",
+
+      investigation:
+        "Operational signals extracted from CI/CD telemetry.",
+
+      rootCause:
+        "Dependency container failed startup health checks during orchestration.",
+
+      correlation:
+        "Similar failure detected across previous deployment cycles.",
+
+      remediation:
+        "Increase startup probe timeout and validate downstream dependencies.",
+
+      confidence:
+        "0.91 • High Reliability",
+
+      approval:
+        "Awaiting Reliability Engineer Approval",
+    },
+
+    {
+      event:
+        "kubeflow-pipeline • ImagePullBackOff",
+
+      investigation:
+        "Container registry authentication failure identified.",
+
+      rootCause:
+        "Image pull secret expired during workflow scheduling.",
+
+      correlation:
+        "Registry access instability detected in prior releases.",
+
+      remediation:
+        "Rotate registry credentials and refresh deployment secrets.",
+
+      confidence:
+        "0.88 • Medium Risk",
+
+      approval:
+        "Approval Required For Secret Rotation",
+    },
+
+    {
+      event:
+        "ml-training-agent • OOMKilled",
+
+      investigation:
+        "Memory telemetry spike detected across execution nodes.",
+
+      rootCause:
+        "Training containers exceeded configured memory limits.",
+
+      correlation:
+        "Large dataset execution patterns matched historical incidents.",
+
+      remediation:
+        "Increase memory allocation and optimize batch execution.",
+
+      confidence:
+        "0.95 • Stable Recovery",
+
+      approval:
+        "Auto Recovery Workflow Approved",
+    },
+
+    {
+      event:
+        "telemetry-stream • NodeFailure",
+
+      investigation:
+        "Distributed node heartbeat interruptions detected.",
+
+      rootCause:
+        "Cluster infrastructure instability affected telemetry ingestion.",
+
+      correlation:
+        "Recurring infrastructure degradation identified.",
+
+      remediation:
+        "Trigger node replacement workflow and rebalance workloads.",
+
+      confidence:
+        "0.84 • Infrastructure Risk",
+
+      approval:
+        "Escalated To Platform Engineering",
+    },
+
+  ];
+
+  const reliabilityCases = [
+
+    {
+      mttr: "18 mins",
+
+      recurring:
+        "Medium • 14 repeated failures detected",
+
+      score:
+        "87 / 100",
+
+      risk:
+        "Medium",
+    },
+
+    {
+      mttr: "9 mins",
+
+      recurring:
+        "Low • Recovery stabilized across workflows",
+
+      score:
+        "94 / 100",
+
+      risk:
+        "Low",
+    },
+
+    {
+      mttr: "27 mins",
+
+      recurring:
+        "High • Multiple recurring orchestration failures",
+
+      score:
+        "72 / 100",
+
+      risk:
+        "High",
+    },
+
+    {
+      mttr: "13 mins",
+
+      recurring:
+        "Medium • Pipeline retry spikes observed",
+
+      score:
+        "83 / 100",
+
+      risk:
+        "Medium",
+    },
+
+  ];
+
+  const [workflowIndex, setWorkflowIndex] =
+    useState(0);
+
+  const [metricIndex, setMetricIndex] =
+    useState(0);
+
   useEffect(() => {
 
     const interval = setInterval(() => {
@@ -48,34 +206,43 @@ function App() {
       });
 
       const incidents = [
+
         {
           severity: "High",
           region: "ap-south-1",
           message: "Kubernetes pod crash detected",
           agents: 6,
         },
+
         {
           severity: "Medium",
           region: "us-east-1",
           message: "CI pipeline execution delay",
           agents: 4,
         },
+
         {
           severity: "Critical",
           region: "eu-central-1",
           message: "Cluster node memory spike",
           agents: 8,
         },
+
         {
           severity: "Low",
           region: "ap-south-1",
           message: "Workflow retry initiated",
           agents: 3,
         },
+
       ];
 
       const randomIncident =
-        incidents[Math.floor(Math.random() * incidents.length)];
+        incidents[
+          Math.floor(
+            Math.random() * incidents.length
+          )
+        ];
 
       setIncident(randomIncident);
 
@@ -84,6 +251,43 @@ function App() {
     return () => clearInterval(interval);
 
   }, []);
+
+  useEffect(() => {
+
+    const workflowInterval =
+      setInterval(() => {
+
+        setWorkflowIndex((prev) =>
+          (prev + 1) %
+          workflowCases.length
+        );
+
+      }, 2000);
+
+    const metricInterval =
+      setInterval(() => {
+
+        setMetricIndex((prev) =>
+          (prev + 1) %
+          reliabilityCases.length
+        );
+
+      }, 2000);
+
+    return () => {
+
+      clearInterval(workflowInterval);
+      clearInterval(metricInterval);
+
+    };
+
+  }, [workflowCases.length, reliabilityCases.length]);
+
+  const currentWorkflow =
+    workflowCases[workflowIndex];
+
+  const currentMetrics =
+    reliabilityCases[metricIndex];
 
   const recoveryData = [
     { time: "10:00", recovery: 82, incidents: 4 },
@@ -193,12 +397,14 @@ function App() {
         </div>
 
         <div className="value">
-          {incident.agents} operational agents online
+          {incident.agents}
+          {" "}
+          operational agents online
         </div>
 
       </div>
 
-      <div className="analysis-box">
+      <div className="analysis-box dynamic-box">
 
         <h2>Investigation Workflow</h2>
 
@@ -206,56 +412,56 @@ function App() {
           Failure Event
         </div>
 
-        <div className="value danger">
-          payment-workflow • CrashLoopBackOff
+        <div className="value danger dynamic-text">
+          {currentWorkflow.event}
         </div>
 
         <div className="label">
           Investigation Agent
         </div>
 
-        <div className="value">
-          Operational signals extracted from CI/CD telemetry.
+        <div className="value dynamic-text">
+          {currentWorkflow.investigation}
         </div>
 
         <div className="label">
           Operational Root Cause
         </div>
 
-        <div className="value">
-          Dependency container failed startup health checks during orchestration.
+        <div className="value dynamic-text">
+          {currentWorkflow.rootCause}
         </div>
 
         <div className="label">
           Historical Correlation
         </div>
 
-        <div className="value">
-          Similar failure detected across previous deployment cycles.
+        <div className="value dynamic-text">
+          {currentWorkflow.correlation}
         </div>
 
         <div className="label">
           Remediation Plan
         </div>
 
-        <div className="value">
-          Increase startup probe timeout and validate downstream dependencies.
+        <div className="value dynamic-text">
+          {currentWorkflow.remediation}
         </div>
 
         <div className="label">
           Confidence Score
         </div>
 
-        <div className="value metric-highlight">
-          0.91 • High Reliability
+        <div className="value metric-highlight dynamic-text">
+          {currentWorkflow.confidence}
         </div>
 
         <div className="label">
           Approval Status
         </div>
 
-        <div className="value warning">
-          Awaiting Reliability Engineer Approval
+        <div className="value warning dynamic-text">
+          {currentWorkflow.approval}
         </div>
 
       </div>
@@ -312,7 +518,7 @@ function App() {
 
       </div>
 
-      <div className="analysis-box">
+      <div className="analysis-box dynamic-box">
 
         <h2>Reliability Metrics</h2>
 
@@ -320,32 +526,32 @@ function App() {
           Mean Time To Resolution (MTTR)
         </div>
 
-        <div className="value">
-          18 mins
+        <div className="value dynamic-text">
+          {currentMetrics.mttr}
         </div>
 
         <div className="label">
           Recurring Incident Frequency
         </div>
 
-        <div className="value">
-          Medium • 14 repeated failures detected
+        <div className="value dynamic-text">
+          {currentMetrics.recurring}
         </div>
 
         <div className="label">
           Pipeline Health Score
         </div>
 
-        <div className="value metric-highlight">
-          87 / 100
+        <div className="value metric-highlight dynamic-text">
+          {currentMetrics.score}
         </div>
 
         <div className="label">
           Operational Risk Level
         </div>
 
-        <div className="value warning">
-          Medium
+        <div className="value warning dynamic-text">
+          {currentMetrics.risk}
         </div>
 
       </div>
