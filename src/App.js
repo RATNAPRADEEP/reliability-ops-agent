@@ -283,27 +283,97 @@ function App() {
 
   }, [workflowCases.length, reliabilityCases.length]);
 
+  useEffect(() => {
+
+  const analyticsInterval = setInterval(() => {
+
+    setRecoveryData([
+      {
+        time: "10:00",
+        recovery: 70 + Math.floor(Math.random() * 20),
+        incidents: Math.floor(Math.random() * 6),
+      },
+
+      {
+        time: "11:00",
+        recovery: 65 + Math.floor(Math.random() * 20),
+        incidents: Math.floor(Math.random() * 6),
+      },
+
+      {
+        time: "12:00",
+        recovery: 60 + Math.floor(Math.random() * 20),
+        incidents: Math.floor(Math.random() * 6),
+      },
+
+      {
+        time: "13:00",
+        recovery: 55 + Math.floor(Math.random() * 20),
+        incidents: Math.floor(Math.random() * 6),
+      },
+
+      {
+        time: "14:00",
+        recovery: 60 + Math.floor(Math.random() * 20),
+        incidents: Math.floor(Math.random() * 6),
+      },
+
+      {
+        time: "15:00",
+        recovery: 65 + Math.floor(Math.random() * 20),
+        incidents: Math.floor(Math.random() * 6),
+      },
+    ]);
+
+    setExecutionData([
+      {
+        stage: "Detection",
+        workflows: 5 + Math.floor(Math.random() * 6),
+      },
+
+      {
+        stage: "Analysis",
+        workflows: 4 + Math.floor(Math.random() * 5),
+      },
+
+      {
+        stage: "Remediation",
+        workflows: 3 + Math.floor(Math.random() * 5),
+      },
+
+      {
+        stage: "Approval",
+        workflows: 1 + Math.floor(Math.random() * 5),
+      },
+    ]);
+
+  }, 2000);
+
+  return () => clearInterval(analyticsInterval);
+
+}, []);
+
   const currentWorkflow =
     workflowCases[workflowIndex];
 
   const currentMetrics =
     reliabilityCases[metricIndex];
 
-  const recoveryData = [
+  const [recoveryData, setRecoveryData] = useState([
     { time: "10:00", recovery: 82, incidents: 4 },
     { time: "11:00", recovery: 78, incidents: 5 },
     { time: "12:00", recovery: 72, incidents: 3 },
     { time: "13:00", recovery: 57, incidents: 2 },
     { time: "14:00", recovery: 61, incidents: 1 },
     { time: "15:00", recovery: 58, incidents: 0 },
-  ];
+  ]);
 
-  const executionData = [
+  const [executionData, setExecutionData] = useState([
     { stage: "Detection", workflows: 9 },
     { stage: "Analysis", workflows: 7 },
     { stage: "Remediation", workflows: 5 },
     { stage: "Approval", workflows: 3 },
-  ];
+  ]);
 
   const aiIncidentScore =
     Math.floor(
