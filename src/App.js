@@ -333,7 +333,7 @@ function App() {
 
     return () => clearInterval(interval);
 
-  }, []);
+  }, [metrics.recoveryRate]);
 
   useEffect(() => {
 
@@ -364,7 +364,7 @@ function App() {
 
     };
 
-  }, []);
+  }, [workflowCases.length, reliabilityCases.length]);
 
   useEffect(() => {
 
@@ -384,7 +384,7 @@ function App() {
 
     return () => clearInterval(syncInterval);
 
-  }, []);
+  }, [workflowTimelineSets.length, agentStatusSets.length]);
 
   useEffect(() => {
 
@@ -454,7 +454,7 @@ function App() {
 
     return () => clearInterval(analyticsInterval);
 
-  }, []);
+  }, [executionData.length, recoveryData.length]);
 
   const currentWorkflow =
     workflowCases[workflowIndex];
@@ -709,21 +709,22 @@ function App() {
         </div>
 
       </div>
+
       <div className="ai-score-card">
 
-        	<h1>AI Reliability Engine Score</h1>
+        <h1>AI Reliability Engine Score</h1>
 
-        	<div className="ai-score-value">
-          		{aiScore}
-        	</div>
+        <div className="ai-score-value">
+          {aiScore}
+        </div>
 
-        	<p>
-          		Dynamic operational intelligence score generated from
-          		live workflow telemetry, recovery efficiency,
-          		incident severity patterns, and orchestration stability.
-        	</p>
+        <p>
+          Dynamic operational intelligence score generated from
+          live workflow telemetry, recovery efficiency,
+          incident severity patterns, and orchestration stability.
+        </p>
 
-     </div>
+      </div>
 
     </div>
 
