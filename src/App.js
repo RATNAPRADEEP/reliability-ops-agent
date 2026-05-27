@@ -333,7 +333,7 @@ function App() {
 
     return () => clearInterval(interval);
 
-  }, [reliabilityCases.length, workflowCases.length]);
+  }, []);
 
   useEffect(() => {
 
@@ -364,7 +364,7 @@ function App() {
 
     };
 
-  }, [agentStatusSets.length, workflowTimelineSets.length]);
+  }, []);
 
   useEffect(() => {
 
