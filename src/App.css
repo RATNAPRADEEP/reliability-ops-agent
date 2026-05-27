@@ -5,37 +5,46 @@
 }
 
 body {
-  background: #050816;
-  font-family: Arial, Helvetica, sans-serif;
+  background: #020617;
+  font-family: "Segoe UI", sans-serif;
   color: white;
 }
 
 .app {
   min-height: 100vh;
   padding: 40px;
+
   background:
-    radial-gradient(circle at top left, #11204d, #050816 55%);
+    radial-gradient(circle at top left, #132c74 0%, #020617 45%),
+    radial-gradient(circle at bottom right, #1d4ed8 0%, #020617 40%);
 }
 
+/* HEADER */
+
 .title {
-  font-size: 58px;
+  text-align: center;
+  font-size: 72px;
   font-weight: 800;
   margin-bottom: 10px;
   color: white;
 }
 
 .subtitle {
-  font-size: 24px;
-  color: #9bbcff;
-  margin-bottom: 30px;
+  text-align: center;
+  font-size: 22px;
+  color: #7df9ff;
+  margin-bottom: 35px;
 }
+
+/* NAVBAR */
 
 .top-nav {
   display: flex;
-  gap: 30px;
-  margin-bottom: 35px;
-  color: #72d8ff;
-  font-weight: 600;
+  gap: 40px;
+  margin-bottom: 40px;
+  font-size: 22px;
+  font-weight: 700;
+  color: #7df9ff;
 }
 
 .top-nav span {
@@ -45,23 +54,24 @@ body {
 
 .top-nav span:hover {
   color: white;
+  transform: translateY(-2px);
 }
+
+/* DASHBOARD */
 
 .dashboard-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 22px;
-  margin-bottom: 35px;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 25px;
+  margin-bottom: 40px;
 }
 
 .card {
-  background: rgba(20, 35, 90, 0.6);
-  border: 1px solid rgba(100, 180, 255, 0.15);
-  border-radius: 22px;
-  padding: 30px;
-  backdrop-filter: blur(10px);
-  transition: 0.3s ease;
-  box-shadow: 0 0 30px rgba(0, 120, 255, 0.12);
+  background: linear-gradient(145deg, #09163d, #1e40af);
+  border-radius: 28px;
+  padding: 35px;
+  box-shadow: 0 0 30px rgba(0, 180, 255, 0.15);
+  transition: 0.3s;
 }
 
 .card:hover {
@@ -69,188 +79,309 @@ body {
 }
 
 .card h2 {
-  font-size: 22px;
-  margin-bottom: 18px;
-  color: #d8e6ff;
+  font-size: 24px;
+  margin-bottom: 20px;
 }
 
 .card p {
-  font-size: 54px;
-  font-weight: bold;
-}
-
-.analysis-box {
-  background: rgba(17, 32, 77, 0.7);
-  border-radius: 28px;
-  padding: 40px;
-  margin-bottom: 35px;
-  border: 1px solid rgba(120, 180, 255, 0.12);
-  box-shadow: 0 0 40px rgba(0, 100, 255, 0.1);
-}
-
-.analysis-box h2 {
-  font-size: 52px;
-  margin-bottom: 30px;
+  font-size: 64px;
   font-weight: 800;
 }
 
-.label {
-  color: #8ca8ff;
-  font-size: 15px;
-  margin-top: 22px;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-}
-
-.value {
-  font-size: 22px;
-  font-weight: 700;
-  margin-top: 10px;
-  line-height: 1.5;
-}
-
-.dynamic-text {
-  animation: fadeText 0.6s ease;
-}
-
-@keyframes fadeText {
-  from {
-    opacity: 0;
-    transform: translateY(8px);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.double-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
-  gap: 25px;
-  margin-bottom: 35px;
-}
-
-.workflow-step,
-.agent-status {
-  padding: 18px;
-  border-radius: 16px;
-  margin-top: 18px;
-  font-weight: 700;
-  font-size: 20px;
-  background: rgba(40, 60, 140, 0.45);
-  transition: 0.3s;
-}
-
-.workflow-step:hover,
-.agent-status:hover {
-  transform: scale(1.02);
+.metric-highlight {
+  color: #7df9ff;
 }
 
 .success {
-  color: #69ffd3;
-}
-
-.warning {
-  color: #ffcf66;
+  color: #7df9ff;
 }
 
 .danger {
-  color: #ff79b0;
+  color: #ff8fab;
 }
 
-.info {
-  color: #9fd8ff;
+.warning-text {
+  color: #ffd166;
 }
 
-.metric-highlight {
-  color: #69ffd3;
+/* INVESTIGATION */
+
+.investigation-card {
+  background: linear-gradient(145deg, #071230, #132c74);
+  padding: 45px;
+  border-radius: 32px;
+  margin-bottom: 40px;
+  box-shadow: 0 0 35px rgba(0, 132, 255, 0.12);
 }
 
-.online {
-  border-left: 5px solid #00ff99;
-}
-
-.running {
-  border-left: 5px solid #00d9ff;
-}
-
-.waiting {
-  border-left: 5px solid #ffc14d;
-}
-
-.synced {
-  border-left: 5px solid #ff7cf0;
-}
-
-.analytics-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
-  gap: 25px;
+.investigation-card h1 {
+  font-size: 64px;
   margin-bottom: 35px;
 }
 
-.analytics-card {
-  background: rgba(20, 35, 90, 0.65);
-  border-radius: 25px;
-  padding: 30px;
-  border: 1px solid rgba(120, 180, 255, 0.15);
+.incident-block {
+  margin-bottom: 28px;
 }
 
-.analytics-card h2 {
-  font-size: 34px;
-  margin-bottom: 25px;
+.incident-block span {
+  display: block;
+  font-size: 20px;
+  color: #cbd5e1;
+  letter-spacing: 1px;
 }
+
+.incident-block h2 {
+  margin-top: 10px;
+  font-size: 48px;
+  color: #ff8fab;
+}
+
+.incident-block p {
+  margin-top: 10px;
+  font-size: 34px;
+  font-weight: 700;
+  line-height: 1.4;
+}
+
+/* WORKFLOW */
+
+.workflow-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+  margin-bottom: 40px;
+}
+
+.workflow-card {
+  background: linear-gradient(145deg, #09163d, #132c74);
+  padding: 35px;
+  border-radius: 30px;
+  box-shadow: 0 0 25px rgba(0, 132, 255, 0.12);
+}
+
+.workflow-card h1 {
+  font-size: 56px;
+  margin-bottom: 30px;
+}
+
+.timeline-item,
+.agent-item {
+  padding: 22px;
+  border-radius: 18px;
+  margin-bottom: 18px;
+  font-size: 28px;
+  font-weight: 700;
+  background: rgba(255,255,255,0.06);
+  transition: 0.3s;
+}
+
+.timeline-item:hover,
+.agent-item:hover {
+  transform: scale(1.02);
+}
+
+.timeline-item.success,
+.agent-item.online {
+  border-left: 8px solid #7df9ff;
+}
+
+.timeline-item.info,
+.agent-item.running {
+  border-left: 8px solid #60a5fa;
+}
+
+.timeline-item.warning,
+.agent-item.waiting {
+  border-left: 8px solid #ffd166;
+}
+
+.agent-item.synced {
+  border-left: 8px solid #ff8fab;
+}
+
+/* METRICS */
+
+.metrics-card {
+  background: linear-gradient(145deg, #09163d, #132c74);
+  padding: 40px;
+  border-radius: 30px;
+  margin-bottom: 40px;
+}
+
+.metrics-card h1 {
+  font-size: 60px;
+  margin-bottom: 35px;
+}
+
+.metric-row {
+  margin-bottom: 28px;
+}
+
+.metric-row span {
+  display: block;
+  font-size: 22px;
+  color: #cbd5e1;
+}
+
+.metric-row h2 {
+  margin-top: 10px;
+  font-size: 42px;
+}
+
+/* AI ENGINE SCORE */
 
 .ai-score-card {
   background:
     linear-gradient(
-      135deg,
-      rgba(0, 255, 170, 0.15),
-      rgba(0, 140, 255, 0.18)
+      145deg,
+      #071230,
+      #132c74
     );
 
-  border-radius: 30px;
   padding: 40px;
-  text-align: center;
-  border: 1px solid rgba(120, 255, 220, 0.2);
+  border-radius: 32px;
   margin-bottom: 40px;
-}
 
-.ai-score-card h2 {
-  font-size: 42px;
-  margin-bottom: 25px;
+  text-align: center;
+
+  box-shadow:
+    0 0 35px rgba(0, 132, 255, 0.15);
 }
 
 .ai-score-card h1 {
-  font-size: 95px;
-  color: #69ffd3;
-  margin-bottom: 18px;
+  font-size: 58px;
+  margin-bottom: 25px;
+}
+
+.ai-score-value {
+  font-size: 120px;
+  font-weight: 900;
+  color: #7df9ff;
+  margin-bottom: 20px;
 }
 
 .ai-score-card p {
-  font-size: 20px;
-  color: #d4e4ff;
-  line-height: 1.7;
+  font-size: 28px;
+  color: #cbd5e1;
+  line-height: 1.5;
+}
+
+/* CHARTS */
+
+.charts-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+}
+
+.ai-score-card {
+  margin-top: 45px
+}
+
+.chart-card {
+  background: linear-gradient(145deg, #09163d, #132c74);
+  padding: 35px;
+  border-radius: 30px;
+  min-height: 520px;
+
+  box-shadow:
+    0 0 30px rgba(0, 132, 255, 0.12);
+}
+
+.chart-card h1 {
+  font-size: 48px;
+  margin-bottom: 25px;
+}
+
+.chart-wrapper {
+  width: 100%;
+  height: 360px;
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 1200px) {
+
+  .dashboard-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .workflow-grid,
+  .charts-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .title {
+    font-size: 52px;
+  }
+
+  .investigation-card h1,
+  .workflow-card h1,
+  .metrics-card h1,
+  .chart-card h1,
+  .ai-score-card h1 {
+    font-size: 42px;
+  }
+
+  .ai-score-value {
+    font-size: 90px;
+  }
 }
 
 @media (max-width: 768px) {
 
+  .app {
+    padding: 20px;
+  }
+
+  .dashboard-grid {
+    grid-template-columns: 1fr;
+  }
+
   .title {
-    font-size: 38px;
+    font-size: 42px;
   }
 
   .subtitle {
     font-size: 18px;
   }
 
-  .analysis-box h2 {
-    font-size: 34px;
+  .top-nav {
+    flex-wrap: wrap;
+    gap: 20px;
+    font-size: 18px;
   }
 
   .card p {
     font-size: 42px;
   }
 
+  .incident-block h2 {
+    font-size: 32px;
+  }
+
+  .incident-block p {
+    font-size: 24px;
+  }
+
+  .timeline-item,
+  .agent-item {
+    font-size: 20px;
+  }
+
+  .metric-row h2 {
+    font-size: 30px;
+  }
+
+  .ai-score-card h1 {
+    font-size: 34px;
+  }
+
+  .ai-score-value {
+    font-size: 72px;
+  }
+
+  .ai-score-card p {
+    font-size: 20px;
+  }
 }

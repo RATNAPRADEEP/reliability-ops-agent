@@ -22,13 +22,6 @@ function App() {
     recoveryRate: 92,
   });
 
-  const [incident, setIncident] = useState({
-    severity: "High",
-    region: "ap-south-1",
-    message: "Live operational telemetry update",
-    agents: 6,
-  });
-
   const workflowCases = [
 
     {
@@ -129,63 +122,194 @@ function App() {
 
     {
       mttr: "18 mins",
-
       recurring:
         "Medium • 14 repeated failures detected",
-
       score:
         "87 / 100",
-
       risk:
         "Medium",
     },
 
     {
       mttr: "9 mins",
-
       recurring:
         "Low • Recovery stabilized across workflows",
-
       score:
         "94 / 100",
-
       risk:
         "Low",
     },
 
     {
       mttr: "27 mins",
-
       recurring:
         "High • Multiple recurring orchestration failures",
-
       score:
         "72 / 100",
-
       risk:
         "High",
     },
 
     {
       mttr: "13 mins",
-
       recurring:
         "Medium • Pipeline retry spikes observed",
-
       score:
         "83 / 100",
-
       risk:
         "Medium",
     },
 
   ];
 
-  const [workflowIndex, setWorkflowIndex] =
-    useState(0);
+  const workflowTimelineSets = [
 
-  const [metricIndex, setMetricIndex] =
-    useState(0);
+    [
+      { text: "✔ Failure Detection Completed", className: "success" },
+      { text: "◌ Investigation Workflow Running", className: "info" },
+      { text: "◌ Root-Cause Classification Pending", className: "waiting" },
+      { text: "◌ Historical Correlation Queued", className: "waiting" },
+      { text: "◌ Awaiting Human Approval", className: "warning" },
+    ],
+
+    [
+      { text: "✔ Failure Detection Completed", className: "success" },
+      { text: "✔ Investigation Workflow Completed", className: "success" },
+      { text: "◌ Root-Cause Classification Running", className: "info" },
+      { text: "◌ Historical Correlation Queued", className: "waiting" },
+      { text: "◌ Awaiting Human Approval", className: "warning" },
+    ],
+
+    [
+      { text: "✔ Failure Detection Completed", className: "success" },
+      { text: "✔ Investigation Workflow Completed", className: "success" },
+      { text: "✔ Root-Cause Classification Completed", className: "success" },
+      { text: "↻ Historical Correlation Generated", className: "info" },
+      { text: "◌ Awaiting Human Approval", className: "warning" },
+    ],
+
+    [
+      { text: "✔ Failure Detection Completed", className: "success" },
+      { text: "✔ Investigation Workflow Completed", className: "success" },
+      { text: "✔ Root-Cause Classification Completed", className: "success" },
+      { text: "✔ Historical Correlation Generated", className: "success" },
+      { text: "● Awaiting Human Approval", className: "warning" },
+    ],
+
+  ];
+
+  const agentStatusSets = [
+
+    [
+      {
+        text: "Investigation Agent • Active",
+        className: "online",
+      },
+
+      {
+        text: "Classification Agent • Waiting",
+        className: "waiting",
+      },
+
+      {
+        text: "Remediation Agent • Idle",
+        className: "waiting",
+      },
+
+      {
+        text: "Historical Memory Layer • Offline",
+        className: "synced",
+      },
+    ],
+
+    [
+      {
+        text: "Investigation Agent • Collecting Telemetry",
+        className: "online",
+      },
+
+      {
+        text: "Classification Agent • Running",
+        className: "running",
+      },
+
+      {
+        text: "Remediation Agent • Waiting Analysis",
+        className: "waiting",
+      },
+
+      {
+        text: "Historical Memory Layer • Syncing",
+        className: "synced",
+      },
+    ],
+
+    [
+      {
+        text: "Investigation Agent • Correlation Complete",
+        className: "online",
+      },
+
+      {
+        text: "Classification Agent • Root Cause Detected",
+        className: "running",
+      },
+
+      {
+        text: "Remediation Agent • Generating Recovery",
+        className: "running",
+      },
+
+      {
+        text: "Historical Memory Layer • Synced",
+        className: "synced",
+      },
+    ],
+
+    [
+      {
+        text: "Investigation Agent • Monitoring",
+        className: "online",
+      },
+
+      {
+        text: "Classification Agent • Completed",
+        className: "online",
+      },
+
+      {
+        text: "Remediation Agent • Awaiting Approval",
+        className: "waiting",
+      },
+
+      {
+        text: "Historical Memory Layer • Knowledge Updated",
+        className: "synced",
+      },
+    ],
+
+  ];
+
+  const [workflowIndex, setWorkflowIndex] = useState(0);
+  const [metricIndex, setMetricIndex] = useState(0);
+  const [timelineIndex, setTimelineIndex] = useState(0);
+  const [agentIndex, setAgentIndex] = useState(0);
+
+  const [recoveryData, setRecoveryData] = useState([
+    { time: "10:00", recovery: 82, incidents: 4 },
+    { time: "11:00", recovery: 78, incidents: 5 },
+    { time: "12:00", recovery: 72, incidents: 3 },
+    { time: "13:00", recovery: 57, incidents: 2 },
+    { time: "14:00", recovery: 61, incidents: 1 },
+    { time: "15:00", recovery: 58, incidents: 0 },
+  ]);
+
+  const [executionData, setExecutionData] = useState([
+    { stage: "Detection", workflows: 9 },
+    { stage: "Analysis", workflows: 7 },
+    { stage: "Remediation", workflows: 5 },
+    { stage: "Approval", workflows: 3 },
+  ]);
 
   useEffect(() => {
 
@@ -204,47 +328,6 @@ function App() {
         recoveryRate:
           85 + Math.floor(Math.random() * 15),
       });
-
-      const incidents = [
-
-        {
-          severity: "High",
-          region: "ap-south-1",
-          message: "Kubernetes pod crash detected",
-          agents: 6,
-        },
-
-        {
-          severity: "Medium",
-          region: "us-east-1",
-          message: "CI pipeline execution delay",
-          agents: 4,
-        },
-
-        {
-          severity: "Critical",
-          region: "eu-central-1",
-          message: "Cluster node memory spike",
-          agents: 8,
-        },
-
-        {
-          severity: "Low",
-          region: "ap-south-1",
-          message: "Workflow retry initiated",
-          agents: 3,
-        },
-
-      ];
-
-      const randomIncident =
-        incidents[
-          Math.floor(
-            Math.random() * incidents.length
-          )
-        ];
-
-      setIncident(randomIncident);
 
     }, 2000);
 
@@ -281,77 +364,97 @@ function App() {
 
     };
 
-  }, [workflowCases.length, reliabilityCases.length]);
+  }, []);
 
   useEffect(() => {
 
-  const analyticsInterval = setInterval(() => {
+    const syncInterval = setInterval(() => {
 
-    setRecoveryData([
-      {
-        time: "10:00",
-        recovery: 70 + Math.floor(Math.random() * 20),
-        incidents: Math.floor(Math.random() * 6),
-      },
+      setTimelineIndex((prev) =>
+        (prev + 1) %
+        workflowTimelineSets.length
+      );
 
-      {
-        time: "11:00",
-        recovery: 65 + Math.floor(Math.random() * 20),
-        incidents: Math.floor(Math.random() * 6),
-      },
+      setAgentIndex((prev) =>
+        (prev + 1) %
+        agentStatusSets.length
+      );
 
-      {
-        time: "12:00",
-        recovery: 60 + Math.floor(Math.random() * 20),
-        incidents: Math.floor(Math.random() * 6),
-      },
+    }, 2500);
 
-      {
-        time: "13:00",
-        recovery: 55 + Math.floor(Math.random() * 20),
-        incidents: Math.floor(Math.random() * 6),
-      },
+    return () => clearInterval(syncInterval);
 
-      {
-        time: "14:00",
-        recovery: 60 + Math.floor(Math.random() * 20),
-        incidents: Math.floor(Math.random() * 6),
-      },
+  }, []);
 
-      {
-        time: "15:00",
-        recovery: 65 + Math.floor(Math.random() * 20),
-        incidents: Math.floor(Math.random() * 6),
-      },
-    ]);
+  useEffect(() => {
 
-    setExecutionData([
-      {
-        stage: "Detection",
-        workflows: 5 + Math.floor(Math.random() * 6),
-      },
+    const analyticsInterval = setInterval(() => {
 
-      {
-        stage: "Analysis",
-        workflows: 4 + Math.floor(Math.random() * 5),
-      },
+      setRecoveryData([
+        {
+          time: "10:00",
+          recovery: 70 + Math.floor(Math.random() * 20),
+          incidents: Math.floor(Math.random() * 6),
+        },
 
-      {
-        stage: "Remediation",
-        workflows: 3 + Math.floor(Math.random() * 5),
-      },
+        {
+          time: "11:00",
+          recovery: 65 + Math.floor(Math.random() * 20),
+          incidents: Math.floor(Math.random() * 6),
+        },
 
-      {
-        stage: "Approval",
-        workflows: 1 + Math.floor(Math.random() * 5),
-      },
-    ]);
+        {
+          time: "12:00",
+          recovery: 60 + Math.floor(Math.random() * 20),
+          incidents: Math.floor(Math.random() * 6),
+        },
 
-  }, 2000);
+        {
+          time: "13:00",
+          recovery: 55 + Math.floor(Math.random() * 20),
+          incidents: Math.floor(Math.random() * 6),
+        },
 
-  return () => clearInterval(analyticsInterval);
+        {
+          time: "14:00",
+          recovery: 60 + Math.floor(Math.random() * 20),
+          incidents: Math.floor(Math.random() * 6),
+        },
 
-}, []);
+        {
+          time: "15:00",
+          recovery: 65 + Math.floor(Math.random() * 20),
+          incidents: Math.floor(Math.random() * 6),
+        },
+      ]);
+
+      setExecutionData([
+        {
+          stage: "Detection",
+          workflows: 5 + Math.floor(Math.random() * 6),
+        },
+
+        {
+          stage: "Analysis",
+          workflows: 4 + Math.floor(Math.random() * 5),
+        },
+
+        {
+          stage: "Remediation",
+          workflows: 3 + Math.floor(Math.random() * 5),
+        },
+
+        {
+          stage: "Approval",
+          workflows: 1 + Math.floor(Math.random() * 5),
+        },
+      ]);
+
+    }, 2000);
+
+    return () => clearInterval(analyticsInterval);
+
+  }, []);
 
   const currentWorkflow =
     workflowCases[workflowIndex];
@@ -359,30 +462,13 @@ function App() {
   const currentMetrics =
     reliabilityCases[metricIndex];
 
-  const [recoveryData, setRecoveryData] = useState([
-    { time: "10:00", recovery: 82, incidents: 4 },
-    { time: "11:00", recovery: 78, incidents: 5 },
-    { time: "12:00", recovery: 72, incidents: 3 },
-    { time: "13:00", recovery: 57, incidents: 2 },
-    { time: "14:00", recovery: 61, incidents: 1 },
-    { time: "15:00", recovery: 58, incidents: 0 },
-  ]);
-
-  const [executionData, setExecutionData] = useState([
-    { stage: "Detection", workflows: 9 },
-    { stage: "Analysis", workflows: 7 },
-    { stage: "Remediation", workflows: 5 },
-    { stage: "Approval", workflows: 3 },
-  ]);
-
-  const aiIncidentScore =
+  const aiScore =
     Math.floor(
       (
-        (metrics.activeIncidents * 12) +
-        ((100 - metrics.recoveryRate) * 2) +
-        (metrics.runningWorkflows * 3)
-      )
-    ) % 100;
+        metrics.recoveryRate +
+        (100 - metrics.activeIncidents * 3)
+      ) / 2
+    );
 
   return (
 
@@ -434,298 +520,213 @@ function App() {
 
       </div>
 
-      <div className="analysis-box">
+      <div className="investigation-card">
 
-        <h2>Operational Incident Summary</h2>
+        <h1>Investigation Workflow</h1>
 
-        <div className="label">
-          Incident Severity
+        <div className="incident-block">
+          <span>FAILURE EVENT</span>
+          <h2>{currentWorkflow.event}</h2>
         </div>
 
-        <div className="value danger">
-          {incident.severity}
+        <div className="incident-block">
+          <span>INVESTIGATION AGENT</span>
+          <p>{currentWorkflow.investigation}</p>
         </div>
 
-        <div className="label">
-          Cluster Region
+        <div className="incident-block">
+          <span>OPERATIONAL ROOT CAUSE</span>
+          <p>{currentWorkflow.rootCause}</p>
         </div>
 
-        <div className="value">
-          {incident.region}
+        <div className="incident-block">
+          <span>HISTORICAL CORRELATION</span>
+          <p>{currentWorkflow.correlation}</p>
         </div>
 
-        <div className="label">
-          Last Updated
+        <div className="incident-block">
+          <span>REMEDIATION PLAN</span>
+          <p>{currentWorkflow.remediation}</p>
         </div>
 
-        <div className="value">
-          {incident.message}
+        <div className="incident-block">
+          <span>CONFIDENCE SCORE</span>
+          <p className="success">
+            {currentWorkflow.confidence}
+          </p>
         </div>
 
-        <div className="label">
-          Active Agents
-        </div>
-
-        <div className="value">
-          {incident.agents}
-          {" "}
-          operational agents online
-        </div>
-
-      </div>
-
-      <div className="analysis-box dynamic-box">
-
-        <h2>Investigation Workflow</h2>
-
-        <div className="label">
-          Failure Event
-        </div>
-
-        <div className="value danger dynamic-text">
-          {currentWorkflow.event}
-        </div>
-
-        <div className="label">
-          Investigation Agent
-        </div>
-
-        <div className="value dynamic-text">
-          {currentWorkflow.investigation}
-        </div>
-
-        <div className="label">
-          Operational Root Cause
-        </div>
-
-        <div className="value dynamic-text">
-          {currentWorkflow.rootCause}
-        </div>
-
-        <div className="label">
-          Historical Correlation
-        </div>
-
-        <div className="value dynamic-text">
-          {currentWorkflow.correlation}
-        </div>
-
-        <div className="label">
-          Remediation Plan
-        </div>
-
-        <div className="value dynamic-text">
-          {currentWorkflow.remediation}
-        </div>
-
-        <div className="label">
-          Confidence Score
-        </div>
-
-        <div className="value metric-highlight dynamic-text">
-          {currentWorkflow.confidence}
-        </div>
-
-        <div className="label">
-          Approval Status
-        </div>
-
-        <div className="value warning dynamic-text">
-          {currentWorkflow.approval}
+        <div className="incident-block">
+          <span>APPROVAL STATUS</span>
+          <p className="warning-text">
+            {currentWorkflow.approval}
+          </p>
         </div>
 
       </div>
 
-      <div className="double-grid">
+      <div className="workflow-grid">
 
-        <div className="analysis-box">
+        <div className="workflow-card">
 
-          <h2>Workflow Timeline</h2>
+          <h1>Workflow Timeline</h1>
 
-          <div className="workflow-step success">
-            ✔ Failure Detection Completed
-          </div>
-
-          <div className="workflow-step success">
-            ✔ Investigation Workflow Completed
-          </div>
-
-          <div className="workflow-step success">
-            ✔ Root-Cause Classification Completed
-          </div>
-
-          <div className="workflow-step info">
-            ↻ Historical Correlation Generated
-          </div>
-
-          <div className="workflow-step warning">
-            ● Awaiting Human Approval
-          </div>
+          {
+            workflowTimelineSets[timelineIndex].map(
+              (item, index) => (
+                <div
+                  key={index}
+                  className={`timeline-item ${item.className}`}
+                >
+                  {item.text}
+                </div>
+              )
+            )
+          }
 
         </div>
 
-        <div className="analysis-box">
+        <div className="workflow-card">
 
-          <h2>Agent Status Console</h2>
+          <h1>Agent Status Console</h1>
 
-          <div className="agent-status online">
-            Investigation Agent • Active
-          </div>
-
-          <div className="agent-status running">
-            Classification Agent • Running
-          </div>
-
-          <div className="agent-status waiting">
-            Remediation Agent • Awaiting Approval
-          </div>
-
-          <div className="agent-status synced">
-            Historical Memory Layer • Synced
-          </div>
+          {
+            agentStatusSets[agentIndex].map(
+              (agent, index) => (
+                <div
+                  key={index}
+                  className={`agent-item ${agent.className}`}
+                >
+                  {agent.text}
+                </div>
+              )
+            )
+          }
 
         </div>
 
       </div>
 
-      <div className="analysis-box dynamic-box">
+      <div className="metrics-card">
 
-        <h2>Reliability Metrics</h2>
+        <h1>Reliability Metrics</h1>
 
-        <div className="label">
-          Mean Time To Resolution (MTTR)
+        <div className="metric-row">
+          <span>MEAN TIME TO RESOLUTION (MTTR)</span>
+          <h2>{currentMetrics.mttr}</h2>
         </div>
 
-        <div className="value dynamic-text">
-          {currentMetrics.mttr}
+        <div className="metric-row">
+          <span>RECURRING INCIDENT FREQUENCY</span>
+          <h2>{currentMetrics.recurring}</h2>
         </div>
 
-        <div className="label">
-          Recurring Incident Frequency
+        <div className="metric-row">
+          <span>PIPELINE HEALTH SCORE</span>
+          <h2>{currentMetrics.score}</h2>
         </div>
 
-        <div className="value dynamic-text">
-          {currentMetrics.recurring}
-        </div>
-
-        <div className="label">
-          Pipeline Health Score
-        </div>
-
-        <div className="value metric-highlight dynamic-text">
-          {currentMetrics.score}
-        </div>
-
-        <div className="label">
-          Operational Risk Level
-        </div>
-
-        <div className="value warning dynamic-text">
-          {currentMetrics.risk}
+        <div className="metric-row">
+          <span>OPERATIONAL RISK LEVEL</span>
+          <h2 className="warning-text">
+            {currentMetrics.risk}
+          </h2>
         </div>
 
       </div>
 
-      <div className="analytics-grid">
+      <div className="charts-grid">
 
-        <div className="analytics-card">
+        <div className="chart-card">
 
-          <h2>Incident Recovery Analytics</h2>
+          <h1>Incident Recovery Analytics</h1>
 
-          <ResponsiveContainer
-            width="100%"
-            height={300}
-          >
+          <div className="chart-wrapper">
 
-            <LineChart data={recoveryData}>
+            <ResponsiveContainer width="100%" height="100%">
 
-              <CartesianGrid
-                strokeDasharray="3 3"
-                stroke="#355"
-              />
+              <LineChart data={recoveryData}>
 
-              <XAxis
-                dataKey="time"
-                stroke="#9bbcff"
-              />
+                <CartesianGrid strokeDasharray="3 3" />
 
-              <YAxis stroke="#9bbcff" />
+                <XAxis dataKey="time" />
 
-              <Tooltip />
+                <YAxis />
 
-              <Line
-                type="monotone"
-                dataKey="recovery"
-                stroke="#38f2d3"
-                strokeWidth={3}
-              />
+                <Tooltip />
 
-              <Line
-                type="monotone"
-                dataKey="incidents"
-                stroke="#ff6ba0"
-                strokeWidth={3}
-              />
+                <Line
+                  type="monotone"
+                  dataKey="recovery"
+                  stroke="#7df9ff"
+                  strokeWidth={4}
+                />
 
-            </LineChart>
+                <Line
+                  type="monotone"
+                  dataKey="incidents"
+                  stroke="#ff8fab"
+                  strokeWidth={3}
+                />
 
-          </ResponsiveContainer>
+              </LineChart>
+
+            </ResponsiveContainer>
+
+          </div>
 
         </div>
 
-        <div className="analytics-card">
+        <div className="chart-card">
 
-          <h2>Workflow Execution Analytics</h2>
+          <h1>Workflow Execution Analytics</h1>
 
-          <ResponsiveContainer
-            width="100%"
-            height={300}
-          >
+          <div className="chart-wrapper">
 
-            <BarChart data={executionData}>
+            <ResponsiveContainer width="100%" height="100%">
 
-              <CartesianGrid
-                strokeDasharray="3 3"
-                stroke="#355"
-              />
+              <BarChart data={executionData}>
 
-              <XAxis
-                dataKey="stage"
-                stroke="#9bbcff"
-              />
+                <CartesianGrid strokeDasharray="3 3" />
 
-              <YAxis stroke="#9bbcff" />
+                <XAxis dataKey="stage" />
 
-              <Tooltip />
+                <YAxis />
 
-              <Bar
-                dataKey="workflows"
-                fill="#38f2d3"
-              />
+                <Tooltip />
 
-            </BarChart>
+                <Bar
+                  dataKey="workflows"
+                  fill="#7df9ff"
+                />
 
-          </ResponsiveContainer>
+              </BarChart>
+
+            </ResponsiveContainer>
+
+          </div>
 
         </div>
 
       </div>
-
       <div className="ai-score-card">
 
-        <h2>AI Incident Scoring Engine</h2>
+        	<h1>AI Reliability Engine Score</h1>
 
-        <h1>{aiIncidentScore}/100</h1>
+        	<div className="ai-score-value">
+          		{aiScore}
+        	</div>
 
-        <p>
-          AI operational risk scoring based on
-          anomaly frequency, workflow instability,
-          retry failures, and infrastructure severity.
-        </p>
+        	<p>
+          		Dynamic operational intelligence score generated from
+          		live workflow telemetry, recovery efficiency,
+          		incident severity patterns, and orchestration stability.
+        	</p>
 
-      </div>
+     </div>
 
     </div>
+
   );
 }
 
