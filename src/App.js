@@ -22,6 +22,13 @@ function App() {
     recoveryRate: 92,
   });
 
+  const [incident, setIncident] = useState({
+    severity: "High",
+    region: "ap-south-1",
+    message: "Live operational telemetry update",
+    agents: 6,
+  });
+
   useEffect(() => {
 
     const interval = setInterval(() => {
@@ -40,7 +47,39 @@ function App() {
           85 + Math.floor(Math.random() * 15),
       });
 
-    }, 5000);
+      const incidents = [
+        {
+          severity: "High",
+          region: "ap-south-1",
+          message: "Kubernetes pod crash detected",
+          agents: 6,
+        },
+        {
+          severity: "Medium",
+          region: "us-east-1",
+          message: "CI pipeline execution delay",
+          agents: 4,
+        },
+        {
+          severity: "Critical",
+          region: "eu-central-1",
+          message: "Cluster node memory spike",
+          agents: 8,
+        },
+        {
+          severity: "Low",
+          region: "ap-south-1",
+          message: "Workflow retry initiated",
+          agents: 3,
+        },
+      ];
+
+      const randomIncident =
+        incidents[Math.floor(Math.random() * incidents.length)];
+
+      setIncident(randomIncident);
+
+    }, 2000);
 
     return () => clearInterval(interval);
 
@@ -75,8 +114,6 @@ function App() {
 
     <div className="app">
 
-      {/* Header */}
-
       <div className="title">
         Reliability Ops Agent
       </div>
@@ -85,8 +122,6 @@ function App() {
         Agentic Operational Workflow System for CI/CD Reliability Engineering
       </div>
 
-      {/* Navigation */}
-
       <div className="top-nav">
         <span>Overview</span>
         <span>Workflows</span>
@@ -94,8 +129,6 @@ function App() {
         <span>Agents</span>
         <span>Observability</span>
       </div>
-
-      {/* Metrics */}
 
       <div className="dashboard-grid">
 
@@ -127,8 +160,6 @@ function App() {
 
       </div>
 
-      {/* Operational Summary */}
-
       <div className="analysis-box">
 
         <h2>Operational Incident Summary</h2>
@@ -138,7 +169,7 @@ function App() {
         </div>
 
         <div className="value danger">
-          High
+          {incident.severity}
         </div>
 
         <div className="label">
@@ -146,7 +177,7 @@ function App() {
         </div>
 
         <div className="value">
-          ap-south-1
+          {incident.region}
         </div>
 
         <div className="label">
@@ -154,7 +185,7 @@ function App() {
         </div>
 
         <div className="value">
-          Live operational telemetry update
+          {incident.message}
         </div>
 
         <div className="label">
@@ -162,12 +193,10 @@ function App() {
         </div>
 
         <div className="value">
-          6 operational agents online
+          {incident.agents} operational agents online
         </div>
 
       </div>
-
-      {/* Investigation Workflow */}
 
       <div className="analysis-box">
 
@@ -231,8 +260,6 @@ function App() {
 
       </div>
 
-      {/* Workflow + Agent Console */}
-
       <div className="double-grid">
 
         <div className="analysis-box">
@@ -285,8 +312,6 @@ function App() {
 
       </div>
 
-      {/* Reliability Metrics */}
-
       <div className="analysis-box">
 
         <h2>Reliability Metrics</h2>
@@ -324,8 +349,6 @@ function App() {
         </div>
 
       </div>
-
-      {/* Analytics Charts */}
 
       <div className="analytics-grid">
 
@@ -411,8 +434,6 @@ function App() {
         </div>
 
       </div>
-
-      {/* AI Scoring */}
 
       <div className="ai-score-card">
 
